@@ -113,6 +113,24 @@
         #next-btn:hover, #restart-btn:hover {
             background-color: #2980b9;
         }
+        
+        /* Estilos para el resumen de resultados */
+        .resumen-resultados {
+            text-align: left;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        .nota-final {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 15px;
+            border-top: 2px solid #bdc3c7;
+            padding-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -139,8 +157,7 @@
 
     <div id="result-area" style="display: none;">
         <h2>FIN DEL EXAMEN</h2>
-        <p id="final-score" style="font-size: 20px; font-weight: bold;"></p>
-        <p id="final-percentage"></p>
+        <div id="resumen-container" class="resumen-resultados"></div>
         <button id="restart-btn" onclick="volverAlInicio()">Volver al menú principal</button>
     </div>
 </div>
@@ -669,12 +686,10 @@
             "respuesta": "La concurrencia implica la alternancia entre tareas, mientras que el paralelismo ejecuta varias tareas al mismo tiempo."
         }
     ];
-
     let bancoPreguntas = [];
     let preguntaActualIndex = 0;
     let puntaje = 0;
 
-    // Función para barajar un array
     function barajarArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -683,20 +698,15 @@
     }
 
     function iniciarExamen(cantidad) {
-        // Clonar el banco original para no modificarlo
         let preguntasMezcladas = JSON.parse(JSON.stringify(bancoPreguntasOriginal));
         
-        // Barajar todas las preguntas
         barajarArray(preguntasMezcladas);
         
-        // Seleccionar solo la cantidad que pidió el usuario
-        // Si pide más de las que hay, se cogen todas.
         bancoPreguntas = preguntasMezcladas.slice(0, cantidad);
         
         preguntaActualIndex = 0;
         puntaje = 0;
         
-        // Cambiar las pantallas
         document.getElementById('start-area').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
         document.getElementById('result-area').style.display = 'none';
@@ -713,9 +723,8 @@
         document.getElementById('next-btn').style.display = 'none';
 
         const optionsContainer = document.getElementById('options');
-        optionsContainer.innerHTML = ''; // Limpiar opciones anteriores
+        optionsContainer.innerHTML = ''; 
 
-        // Clonar y barajar opciones
         let opcionesMezcladas = [...item.opciones];
         barajarArray(opcionesMezcladas);
 
@@ -732,7 +741,6 @@
         const botones = document.querySelectorAll('.option-btn');
         const feedbackArea = document.getElementById('feedback-area');
 
-        // Deshabilitar botones
         botones.forEach(btn => {
             btn.disabled = true;
             if (btn.innerText === correcta) {
@@ -750,7 +758,6 @@
             feedbackArea.style.color = "#c0392b";
         }
 
-        // Mostrar botón de siguiente
         document.getElementById('next-btn').style.display = 'inline-block';
     }
 
@@ -768,10 +775,37 @@
         document.getElementById('result-area').style.display = 'block';
         
         const total = bancoPreguntas.length;
-        const porcentaje = ((puntaje / total) * 100).toFixed(2);
+        const fallos = total - puntaje;
         
-        document.getElementById('final-score').innerText = `Tu puntuación final es: ${puntaje} aciertos de ${total} posibles.`;
-        document.getElementById('final-percentage').innerText = `Porcentaje de acierto: ${porcentaje}%`;
+        let notaFinal = puntaje;
+        let htmlResumen = `
+            <p>✅ <b>Aciertos:</b> ${puntaje}</p>
+            <p>❌ <b>Fallos:</b> ${fallos}</p>
+        `;
+
+        // Aplicar penalización SOLO si el examen es de 30 preguntas
+        if (total === 30) {
+            const penalizacion = fallos / 3;
+            notaFinal = puntaje - penalizacion;
+            
+            // Opcional: Evitar que la nota sea menor que 0
+            if(notaFinal < 0) notaFinal = 0;
+
+            htmlResumen += `
+                <p style="color: #e74c3c;">⚠️ <b>Penalización (1/3 por fallo):</b> -${penalizacion.toFixed(2)} puntos</p>
+                <div class="nota-final">Nota Final Real: ${notaFinal.toFixed(2)} / ${total}</div>
+            `;
+        } else {
+            htmlResumen += `
+                <div class="nota-final">Nota Final: ${notaFinal} / ${total}</div>
+            `;
+        }
+        
+        // Calcular porcentaje sobre 10 (ej: 6.5 / 10)
+        const notaSobre10 = (notaFinal / total) * 10;
+        htmlResumen += `<p><b>Calificación sobre 10:</b> ${notaSobre10.toFixed(2)}</p>`;
+        
+        document.getElementById('resumen-container').innerHTML = htmlResumen;
     }
 
     function volverAlInicio() {
@@ -779,9 +813,6 @@
         document.getElementById('quiz-area').style.display = 'none';
         document.getElementById('result-area').style.display = 'none';
     }
-
-    // Ya no iniciamos el examen automáticamente al cargar la página,
-    // esperamos a que el usuario presione un botón.
 </script>
 
 </body>
