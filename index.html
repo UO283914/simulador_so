@@ -33,7 +33,7 @@
         }
         
         /* Estilos para la pantalla de inicio */
-        #start-area h2 {
+        #start-area-tema h2, #start-area-cantidad h2 {
             color: #34495e;
             font-size: 18px;
             margin-bottom: 20px;
@@ -51,6 +51,23 @@
         }
         .cantidad-btn:hover {
             background-color: #2c3e50;
+        }
+        .tema-btn {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .tema-btn:hover {
+            background-color: #1f618d;
         }
 
         #quiz-header {
@@ -138,13 +155,23 @@
 <div class="container">
     <h1>Simulador de Examen de Sistemas Operativos</h1>
     
-    <div id="start-area">
-        <h2>¿Cuántas preguntas quieres responder?</h2>
+    <div id="start-area-tema">
+        <h2>1. Selecciona el Tema</h2>
+        <button class="tema-btn" onclick="seleccionarTema('Todos')">Todos los temas mezclados</button>
+        <button class="tema-btn" onclick="seleccionarTema('Tema 1')">Tema 1: Introducción a Sistemas Operativos</button>
+        <button class="tema-btn" onclick="seleccionarTema('Tema 2')">Tema 2: Gestión de Procesos</button>
+        <button class="tema-btn" onclick="seleccionarTema('Tema 3')">Tema 3: Coordinación y Sincronización</button>
+    </div>
+
+    <div id="start-area-cantidad" style="display: none;">
+        <h2>2. ¿Cuántas preguntas quieres responder?</h2>
         <button class="cantidad-btn" onclick="iniciarExamen(15)">15 Preguntas</button>
         <button class="cantidad-btn" onclick="iniciarExamen(30)">30 Preguntas</button>
         <button class="cantidad-btn" onclick="iniciarExamen(50)">50 Preguntas</button>
         <button class="cantidad-btn" onclick="iniciarExamen(75)">75 Preguntas</button>
-        <button class="cantidad-btn" onclick="iniciarExamen(104)">Todas (104)</button>
+        <button class="cantidad-btn" onclick="iniciarExamen(104)">Todas</button>
+        <br><br>
+        <button class="cantidad-btn" style="background-color: #7f8c8d;" onclick="volverAlInicio()">Cambiar Tema</button>
     </div>
 
     <div id="quiz-area" style="display: none;">
@@ -163,524 +190,628 @@
 </div>
 
 <script>
-    // Tu banco de preguntas
+    // Banco de preguntas con el tema asignado
     const bancoPreguntasOriginal = [
         {
+            "tema": "Tema 1",
             "pregunta": "¿Cuál de las siguientes componentes de un sistema informático tiene un MAYOR nivel de abstracción?",
             "opciones": ["El sistema operativo.", "El hardware.", "Los usuarios.", "Las aplicaciones de usuario."],
             "respuesta": "Las aplicaciones de usuario."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Qué es una llamada al sistema?",
             "opciones": ["Un elemento hardware que permite acceder a los servicios del sistema operativo.", "Una aplicación que ejecutan los usuarios para acceder a los servicios del sistema operativo.", "Una interrupción síncrona que permite a los procesos acceder a los servicios del sistema operativo.", "Una interrupción síncrona que se produce de forma involuntaria a los procesos."],
             "respuesta": "Una interrupción síncrona que permite a los procesos acceder a los servicios del sistema operativo."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "En los sistemas multiprogramados...",
             "opciones": ["...se obtiene un mejor rendimiento de la CPU si el número de procesos en memoria principal es elevado.", "...el hardware debe tener un reloj.", "...un proceso no puede comenzar su ejecución hasta que el anterior se haya ejecutado completamente (haya finalizado).", "...la CPU nunca está ociosa."],
             "respuesta": "...se obtiene un mejor rendimiento de la CPU si el número de procesos en memoria principal es elevado."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál de las siguientes situaciones aumenta, a priori, el tiempo de respuesta de los procesos?",
             "opciones": ["Que haya muchos usuarios en el sistema informático trabajando simultáneamente.", "Que haya pocas CPUs.", "Que un proceso ejecute siempre su ráfaga de CPU seguida (sin que otro proceso tome la CPU).", "Que haya muchos procesos realizando entrada/salida."],
             "respuesta": "Que un proceso ejecute siempre su ráfaga de CPU seguida (sin que otro proceso tome la CPU)."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "En un sistema operativo con tiempo compartido, ¿bajo qué circunstancia un proceso abandona el uso de la CPU?",
             "opciones": ["Sólo cuando comienza una entrada/salida.", "Únicamente si se produce cualquier interrupción software o un fin de cuanto.", "Únicamente si se produce una interrupción hardware o un fin de cuanto.", "Únicamente si se produce una interrupción hardware o una excepción o una llamada al sistema."],
             "respuesta": "Únicamente si se produce una interrupción hardware o una excepción o una llamada al sistema."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Señala en qué tipo de sistema operativo todos los procesos tienen un tiempo de retorno normalizado igual a uno:",
             "opciones": ["En los sistemas operativos monoprogramados.", "En los sistemas operativos multiprogramados.", "En los sistemas operativos de tiempo compartido.", "En cualquier sistema operativo."],
             "respuesta": "En los sistemas operativos monoprogramados."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Se tiene un sistema informático UEFI indica cuál de las siguientes situaciones NO puede darse:",
             "opciones": ["Qué un disco tenga sistema de particiones BIOS/MSDOS.", "Que se arranque un sistema operativo antiguo que no soporta UEFI.", "Que un sistema operativo arranque en modo seguro.", "Todas las anteriores son falsas (todas las situaciones anteriores pueden ocurrir en un sistema UEFI)."],
             "respuesta": "Todas las anteriores son falsas (todas las situaciones anteriores pueden ocurrir en un sistema UEFI)."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Elige de entre los siguientes el que se ejecuta después de todos los demás:",
             "opciones": ["El sistema operativo.", "El gestor de arranque.", "El firmware.", "El código del MBR."],
             "respuesta": "El sistema operativo."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Durante el proceso de arranque de un ordenador, ¿qué se puede elegir en la BIOS?:",
             "opciones": ["De qué dispositivo arrancar.", "De qué partición primaria arrancar (hacerla activa)", "Habilitar/Deshabilitar el MBR de los discos.", "Todas las anteriores son falsas."],
             "respuesta": "De qué dispositivo arrancar."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Cuando se crea un proceso a partir de otro mediante clonación...",
             "opciones": ["...se accede a memoria secundaria.", "...ambos procesos ejecutan el mismo programa.", "...ambos procesos comparten el código y los datos en memoria principal, pero no la pila ni el PCB.", "...los dos procesos comparten todo en memoria principal excepto parte del PCB."],
             "respuesta": "...ambos procesos ejecutan el mismo programa."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál de las siguientes estadísticas indica el tiempo total que ha estado un proceso en el sistema?",
             "opciones": ["El tiempo de retorno.", "El tiempo de retorno normalizado.", "El tiempo de espera.", "El tiempo de servicio."],
             "respuesta": "El tiempo de retorno."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál de las siguientes transiciones de estados de un proceso solo se puede dar si el planificador a corto plazo utiliza una política con requisamiento?",
             "opciones": ["De EJECUTANDO a BLOQUEADO.", "De BLOQUEADO a EJECUTANDO.", "De EJECUTANDO a FINALIZADO.", "De EJECUTANDO a LISTO."],
             "respuesta": "De EJECUTANDO a LISTO."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Por qué es necesario realizar las operaciones de salvar y restaurar contexto en un S.O.?",
             "opciones": ["Para que funcione correctamente el intercalado de instrucciones.", "Para que pueda saberse el estado en que están los procesos.", "Para poder calcular las estadísticas asociadas a cada proceso (tr, te, ts, etc).", "Para que el S.O. pueda tomar el control."],
             "respuesta": "Para que funcione correctamente el intercalado de instrucciones."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuáles de los siguientes planificadores del S.O. puede disminuir el grado de multiprogramación?",
             "opciones": ["Solo el planificador a medio plazo y el planificador a largo plazo.", "Solo el planificador a corto plazo y el planificador a largo plazo.", "Solo el planificador a medio plazo.", "Los tres planificadores (corto, medio y largo) pueden disminuir el grado de multiprogramación."],
             "respuesta": "Solo el planificador a medio plazo y el planificador a largo plazo."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "En un sistema operativo multihilo, ¿qué información se guarda en el TCB?",
             "opciones": ["El estado del proceso.", "El estado de los registros del procesador.", "El usuario propietario del hilo.", "Las variables locales de cada hilo."],
             "respuesta": "El estado de los registros del procesador."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál de las siguientes políticas de planificación a corto plazo es sin requisamiento?",
             "opciones": ["Colas multinivel", "FIFO.", "RR + Prioridades", "RR+FIFO"],
             "respuesta": "FIFO."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuál de las siguientes técnicas garantiza, en última instancia (el resto de técnicas funcionan gracias a ésta), que se puede realizar exclusión mutua a los recursos?",
             "opciones": ["Las instrucciones máquina Test&Set o Swap.", "El hardware del sistema informático.", "Los semáforos.", "Las interrupciones hardware."],
             "respuesta": "El hardware del sistema informático."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cómo se puede garantizar el acceso exclusivo a una sección crítica mediante semáforos?",
             "opciones": ["Usando un semáforo binario S inicializado a 1 y rodeando dicha sección crítica de las operaciones P(S) y V(S).", "Usando un semáforo binario S inicializado a 0 y rodeando dicha sección crítica de las operaciones P(S) y V(S).", "Usando dos semáforos binarios S1 y S2 inicializados a 1 y rodeando dicha sección crítica de las operaciones P(S1) y V(S2).", "Usando dos semáforos binarios S1 y S2 inicializados a 0 y rodeando dicha sección crítica de las operaciones P(S1) y V(S2)."],
             "respuesta": "Usando un semáforo binario S inicializado a 1 y rodeando dicha sección crítica de las operaciones P(S) y V(S)."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Se tienen dos procesos P1 y P2 accediendo a dos recursos globales compartidos R1 y R2. Señala la respuesta correcta cuando se quiere garantizar la exclusión mutua de ambos recursos:",
             "opciones": ["No se puede utilizar un único semáforo.", "Si P1 accede a una sección crítica de R1 entonces P2 no puede estar en ninguna sección crítica.", "P1 y P2 pueden estar dentro de una sección crítica simultáneamente.", "Deben utilizarse tantos semáforos como secciones críticas haya en el código."],
             "respuesta": "P1 y P2 pueden estar dentro de una sección crítica simultáneamente."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "En programación concurrente, ¿qué es una sección crítica?",
             "opciones": ["Una sección del área de datos donde dos o más procesos y/o hilos acceden de forma compartida.", "Una sección de código en el que se accede a cualquier variable.", "Una sección de código en el que se accede a una variable global compartida por dos o más procesos y/o hilos.", "Una rutina de interrupción manejada por el S.O."],
             "respuesta": "Una sección de código en el que se accede a una variable global compartida por dos o más procesos y/o hilos."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Indica la respuesta FALSA en cuanto a la relación de un proceso y el sistema operativo:",
             "opciones": ["El sistema operativo no interviene si el proceso no lo requiere.", "El sistema operativo ejecuta la instrucción IRET antes de asignar la CPU a un proceso.", "El sistema operativo se compone de procesos (y otros datos).", "Un proceso de usuario sólo puede acceder al hardware a través del sistema operativo."],
             "respuesta": "El sistema operativo no interviene si el proceso no lo requiere."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las interrupciones:",
             "opciones": ["Tienen rutinas de ejecución (manejadores de interrupción) propias para cada proceso.", "Tienen rutinas de ejecución (manejadores de interrupción) que no pertenecen al sistema operativo.", "Pueden ser hardware, software y reloj.", "Siempre hacen que el sistema operativo tome el control de la CPU."],
             "respuesta": "Siempre hacen que el sistema operativo tome el control de la CPU."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un proceso:",
             "opciones": ["Puede ser desalojado de la CPU por otro proceso más prioritario aunque no haya mediado una interrupción.", "Sólo sale de la CPU tras ejecutar la instrucción TRAP.", "Siempre empieza su ejecución usando la CPU y acaba por una interrupción.", "Siempre empieza y acaba su ejecución usando la CPU."],
             "respuesta": "Puede ser desalojado de la CPU por otro proceso más prioritario aunque no haya mediado una interrupción."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿De qué partes consta la imagen de un proceso?",
             "opciones": ["El código y los datos de su fichero ejecutable.", "El PCB, la pila y el código y los datos de su fichero ejecutable.", "Todas las demás son falsas.", "El PCB y el código del programa."],
             "respuesta": "El PCB, la pila y el código y los datos de su fichero ejecutable."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "El principal beneficio de la cooperación por comunicación entre procesos frente a la cooperación por compartición es:",
             "opciones": ["La comunicación la controla el sistema operativo y no el programador.", "Que no existe el problema de exclusión mutua.", "Las señales son mucho más flexibles que los semáforos.", "Nunca puede haber un deadlock."],
             "respuesta": "Que no existe el problema de exclusión mutua."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Se tiene un sistema informático que solamente tiene como dispositivo de almacenamiento un disco duro que tiene 3 particiones primarias. Si ninguna de ellas está activa y encendemos el equipo podemos asegurar que:",
             "opciones": ["El sistema no podrá arrancar un SO.", "La BIOS del sistema permitirá elegir de qué partición primaria arrancar.", "El sistema arrancará siempre el SO de la primera partición primaria si ésta contiene una instalación correcta del mismo.", "Debe haber un código de arranque correcto en el primer sector del disco para que pueda arrancar un SO."],
             "respuesta": "El sistema no podrá arrancar un SO."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué es el grado de multiprogramación?",
             "opciones": ["El número de procesos en memoria principal más el número de procesos en memoria secundaria.", "El número de procesos en estado 'LISTO'.", "El número de procesos en memoria principal.", "El número de procesos en el sistema informático."],
             "respuesta": "El número de procesos en memoria principal más el número de procesos en memoria secundaria."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuál es el protocolo de salida de una sección crítica utilizando un semáforo?",
             "opciones": ["Realizar una operación P sobre un semáforo inicializado a 1.", "Realizar una operación V sobre un semáforo inicializado a 0.", "Realizar una operación V sobre un semáforo inicializado a 1.", "Realizar una operación P sobre un semáforo inicializado a 0."],
             "respuesta": "Realizar una operación V sobre un semáforo inicializado a 1."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Un sistema informático monoprogramado:",
             "opciones": ["Contiene un código llamado monitor que implementa, entre otras funciones, el Planificador a Corto Plazo.", "Puede contener un código llamado monitor que controla el acceso a la CPU.", "Tiene que ser reiniciado para poder ejecutar un segundo programa tras finalizar el primero.", "Contiene un código llamado monitor que se sobrescribe con el código del programa a ejecutar."],
             "respuesta": "Tiene que ser reiniciado para poder ejecutar un segundo programa tras finalizar el primero."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las interrupciones software:",
             "opciones": ["Pueden ser asíncronas.", "Siempre son intencionadas.", "Pueden generarlas los procesos de usuario.", "Siempre se producen por un fallo de ejecución."],
             "respuesta": "Pueden generarlas los procesos de usuario."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Para que exista concurrencia entre procesos:",
             "opciones": ["Tiene que haber secciones críticas.", "Tiene que haber intercalado de procesos.", "Tiene que haber recursos compartidos.", "Tiene que haber varios núcleos o CPUs."],
             "respuesta": "Tiene que haber intercalado de procesos."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "El planificador a corto plazo:",
             "opciones": ["Carga el proceso seleccionado en la CPU.", "Elige el proceso, entre los listos, que accede a la CPU.", "Todas las demás son ciertas.", "Se ejecuta solamente tras una instrucción TRAP de un proceso."],
             "respuesta": "Elige el proceso, entre los listos, que accede a la CPU."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Ordena, de menor a mayor, el grado de abstracción de los siguientes elementos:",
             "opciones": ["Sistema operativo, aplicación de usuario, compilador.", "Aplicación de usuario, aplicación de sistema, sistema operativo.", "Firmware, Sistema operativo, Base de datos.", "Interfaz de usuario, código máquina, compilador."],
             "respuesta": "Interfaz de usuario, código máquina, compilador."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Con qué criterio se clasifican los sistemas de tiempo compartido?",
             "opciones": ["Según la utilización de recursos.", "Según el grado de multiprogramación.", "Según la interactividad.", "Según el número de usuarios."],
             "respuesta": "Según la interactividad."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿En qué caso un modelo de 2 estados es insuficiente?",
             "opciones": ["Cuando el sistema operativo es monoprogramado.", "Cuando el sistema operativo es multiprogramado.", "Cuando se quiere distinguir entre procesos en ejecución y listos.", "Cuando se quiere gestionar varias CPUs."],
             "respuesta": "Cuando se quiere distinguir entre procesos en ejecución y listos."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Una llamada al sistema...",
             "opciones": ["...es una interrupción hardware y síncrona.", "...es una interrupción software y asíncrona.", "...es una interrupción software y síncrona.", "...no es una interrupción."],
             "respuesta": "...es una interrupción software y síncrona."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Indica la diferencia entre un sistema operativo multiprogramado y uno de tiempo compartido:",
             "opciones": ["El tiempo compartido multiplexa la CPU mediante cuantos de tiempo.", "Son dos nombres para el mismo concepto.", "En el tiempo compartido no puede morir de inanición un proceso.", "El multiprogramado sólo se aplica en sistemas con múltiples CPUs."],
             "respuesta": "El tiempo compartido multiplexa la CPU mediante cuantos de tiempo."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Señala la respuesta FALSA. En un modelo de siete estados, el grado de multiprogramación depende de:",
             "opciones": ["El planificador a largo plazo.", "La cantidad de memoria secundaria.", "El planificador a medio plazo.", "El planificador a corto plazo."],
             "respuesta": "El planificador a corto plazo."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Señala la respuesta correcta acerca de la instrucción máquina Test&Set",
             "opciones": ["Permite que el código de las secciones críticas sea igual en todos los procesos.", "Elimina la espera activa.", "La instrucción bloquea el bus de memoria a otras CPUs.", "No puede producir interbloqueos."],
             "respuesta": "Elimina la espera activa."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Cuál de las siguientes técnicas necesita que haya un dispositivo reloj en el sistema informático?",
             "opciones": ["El intercalado de instrucciones.", "El tiempo compartido.", "La multiprogramación.", "Las interrupciones hardware."],
             "respuesta": "El tiempo compartido."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Qué beneficio aporta la técnica de tiempo compartido?",
             "opciones": ["Minimiza el tiempo de inactividad de la CPU.", "Disminuye el tiempo de servicio.", "Aumenta el grado de multiprogramación.", "Disminuye el tiempo de respuesta."],
             "respuesta": "Disminuye el tiempo de respuesta."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Se tienen dos semáforos binarios S1 y S2, y N procesos usando dichos semáforos (llamando a sus operaciones P, V e init). Señala la respuesta correcta:",
             "opciones": ["Si un proceso está ejecutando una operación de S1 ningún otro proceso puede ejecutar esa misma operación sobre ese mismo semáforo S1 hasta que la primera no termine completamente, pero sí otras operaciones de S1.", "Si un proceso está ejecutando una operación de S1 ningún otro proceso puede ejecutar cualquier operación sobre ese mismo semáforo S1 hasta que la primera no termine completamente.", "Si un proceso está ejecutando una operación de S1 ningún otro proceso puede ejecutar esa misma operación sobre ninguno de los dos semáforos hasta que la primera no termine completamente, pero sí otras operaciones.", "Si un proceso está ejecutando una operación de S1 ningún otro proceso puede ejecutar cualquier operación sobre ninguno de los dos semáforos hasta que la primera no termine completamente."],
             "respuesta": "Si un proceso está ejecutando una operación de S1 ningún otro proceso puede ejecutar esa misma operación sobre ese mismo semáforo S1 hasta que la primera no termine completamente, pero sí otras operaciones de S1."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué planificadores pueden aumentar el grado de multiprogramación? (Señala la respuesta correcta más completa).",
             "opciones": ["El planificador a largo plazo.", "Todos los planificadores.", "El planificador a largo plazo y el planificador a corto plazo.", "El planificador a largo plazo y el planificador a medio plazo."],
             "respuesta": "El planificador a largo plazo."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Indica cuál de los siguientes bloques NO forma parte del sistema operativo:",
             "opciones": ["Planificador a largo plazo.", "Localización de ficheros en memoria secundaria.", "Inicialización del vector de interrupciones.", "Compilador."],
             "respuesta": "Compilador."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "El uso de semáforos para sincronización de procesos:",
             "opciones": ["No se pueden usar para sincronizar procesos, sólo para controlar el problema de exclusión mutua.", "Puede producir deadlocks.", "Debe hacerse con semáforos binarios.", "Debe hacerse con semáforos de cuenta."],
             "respuesta": "Puede producir deadlocks."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Cuántas interrupciones diferentes son necesarias para llamar a un servicio del sistema operativo?",
             "opciones": ["Solo una", "Tantas como servicios haya", "Dos: una para llamar al servicio en modo usuario y otra para llamar al servicio en modo privilegiado", "Ninguna. Los servicios son funciones que se llaman directamente"],
             "respuesta": "Solo una"
         },
         {
+            "tema": "Tema 1",
             "pregunta": "La BIOS:",
             "opciones": ["No pertenece al sistema operativo", "Es un elemento crítico del sistema operativo", "Está grabada en el sector 0 del disco", "Está grabada en el sector 0 de la partición primaria"],
             "respuesta": "No pertenece al sistema operativo"
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué parte del PCB modifica el planificador a corto plazo?",
             "opciones": ["Información de control del proceso", "Identificación del proceso", "Información de estado del procesador", "El planificador a corto plazo no modifica el PCB"],
             "respuesta": "Información de estado del procesador"
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Un sistema informático consta de:",
             "opciones": ["Hardware.", "Programas de aplicación.", "Programas de sistemas.", "Todo lo anterior."],
             "respuesta": "Todo lo anterior."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las personas que se identifican individualmente ante el SO se denominan:",
             "opciones": ["Usuarios.", "Huésped.", "Anfitrión.", "Ninguna de las anteriores."],
             "respuesta": "Usuarios."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "El contenido de un PCB es:",
             "opciones": ["Únicamente la identificación del proceso.", "El contexto de ejecución del proceso.", "El código de un proceso.", "Ninguna es cierta."],
             "respuesta": "El contexto de ejecución del proceso."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "El despachador:",
             "opciones": ["Decide qué proceso va a tomar el control de la CPU.", "Es el módulo encargado del cambio de proceso.", "Tiene bajo coste.", "Actúa sobre el proceso que entra a la CPU."],
             "respuesta": "Es el módulo encargado del cambio de proceso."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "El intérprete de comandos/Shell:",
             "opciones": ["Es parte del SO.", "No se ejecuta al iniciar sesión.", "Espera a que el usuario introduzca una orden y la ejecuta.", "Ninguna de las anteriores."],
             "respuesta": "Espera a que el usuario introduzca una orden y la ejecuta."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un proceso puede terminar por:",
             "opciones": ["Ejecutar una instrucción especial de finalización.", "Producir un error de ejecución.", "Si su proceso padre lo 'mata'.", "Todas son correctas."],
             "respuesta": "Todas son correctas."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las interrupciones:",
             "opciones": ["De hardware son asíncronas y las de software síncronas.", "De hardware y software son asíncronas.", "De hardware y software son síncronas.", "De hardware son síncronas y de software son asíncronas."],
             "respuesta": "De hardware son asíncronas y las de software síncronas."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "En un sistema operativo con estructura interna en capas, una capa tiene que conocer:",
             "opciones": ["Los detalles de implementación de la capa inmediatamente superior.", "Los detalles de implementación de la capa inmediatamente inferior.", "Los detalles de implementación de todas las capas inferiores.", "Todas las anteriores son falsas."],
             "respuesta": "Los detalles de implementación de la capa inmediatamente inferior."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Sea un disco duro con 2 particiones primarias y una unidad lógica (en una partición extendida). Podemos asegurar que:",
             "opciones": ["Puede haber hasta 4 códigos de arranque diferentes en el disco.", "Puede haber hasta 3 códigos de arranque diferentes en el disco.", "Hay al menos un código de arranque en el disco.", "Todas las anteriores son falsas."],
             "respuesta": "Hay al menos un código de arranque en el disco."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿En cuál de los siguientes tipos de SO no es necesario el uso de un temporizador hardware?",
             "opciones": ["Proceso en serie.", "Sistemas sencillos de procesos por lotes.", "Sistemas por lotes con multiprogramación.", "En ninguna de las tres anteriores."],
             "respuesta": "Proceso en serie."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "La entrada/salida por programa es una técnica propia de:",
             "opciones": ["Los sistemas operativos multiprogramados.", "Los sistemas operativos de tiempo compartido.", "Los sistemas operativos multiusuario.", "Todas las anteriores son falsas."],
             "respuesta": "Todas las anteriores son falsas."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Los algoritmos de planificación a corto plazo son:",
             "opciones": ["FIFO, Prioridad estática requisada, prioridad estática única, Round-Robin (RR)+FIFO.", "FIFO, LIFO, LSR y RR+FIFO.", "FIFO, Prioridad estática sin requisamiento, prioridad estática con requisamiento, RR+FIFO.", "FIFO, LSU, LSR y LIFO."],
             "respuesta": "FIFO, Prioridad estática sin requisamiento, prioridad estática con requisamiento, RR+FIFO."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Dado el siguiente algoritmo de planificación FIFO con ráfagas dadas, determinar el tiempo medio de espera:",
             "opciones": ["13", "21", "26", "18"],
             "respuesta": "18"
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Quién de los siguientes pueden manipular el PCB de un proceso? (elegir la respuesta correcta más completa).",
             "opciones": ["El sistema operativo.", "El propio proceso y el sistema operativo.", "El sistema operativo, el propio proceso y cualquier proceso más prioritario que él.", "La BIOS."],
             "respuesta": "El sistema operativo."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Cuando se produce el fin de E/S de un proceso, ¿qué transición de estados se produce en dicho proceso?",
             "opciones": ["De LISTO a BLOQUEADO.", "De BLOQUEADO a LISTO.", "De EJECUCIÓN a BLOQUEADO.", "De BLOQUEADO-SUSPENDIDO A LISTO."],
             "respuesta": "De BLOQUEADO a LISTO."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Señala la respuesta correcta:",
             "opciones": ["A toda la información necesaria para localizar el PCB de un proceso se le denomina Contexto de Ejecución del Proceso.", "Dos procesos que estén ejecutando el mismo programa tendrán contextos de ejecución de proceso idénticos en todo momento.", "El contexto de ejecución de un proceso es una estructura de datos auxiliar para cada proceso donde se guarda la información que no tiene cabida en su PCB.", "Todas las anteriores son falsas."],
             "respuesta": "El contexto de ejecución de un proceso es una estructura de datos auxiliar para cada proceso donde se guarda la información que no tiene cabida en su PCB."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "El planificador a largo plazo actúa sobre los estados:",
             "opciones": ["Ready (suspend) y Running.", "Blocked (suspend) y Blocked.", "New, Running y Exit.", "Ninguno de los anteriores."],
             "respuesta": "New, Running y Exit."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un PCB consta de:",
             "opciones": ["Identificación del proceso.", "Identificador de procesos bloqueados.", "a y b son correctas.", "Ninguna es correcta."],
             "respuesta": "Identificación del proceso."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las cuatro estrategias de asignación de espacio son:",
             "opciones": ["Primer ajuste, siguiente ajuste, mejor ajuste, peor ajuste.", "Primer ajuste, último ajuste, mejor ajuste, ajuste óptimo.", "Primer ajuste, mejor ajuste, siguiente ajuste, ajuste óptimo.", "Primer ajuste, siguiente ajuste, ajuste óptimo, peor ajuste."],
             "respuesta": "Primer ajuste, siguiente ajuste, mejor ajuste, peor ajuste."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué evento puede llevar a un proceso en ejecución a estado 'BLOQUEADO'?",
             "opciones": ["Una interrupción software.", "El fin de un cuanto de tiempo.", "La llegada de un proceso más prioritario a la cola de listos.", "Una interrupción hardware."],
             "respuesta": "Una interrupción hardware."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuántas secciones críticas habrá en el código si se utilizan 2 variables globales compartidas, 2 semáforos y se tienen 2 procesos?",
             "opciones": ["Todas las demás son falsas.", "Dos.", "Cuatro.", "Cuatro en el código de cada proceso."],
             "respuesta": "Cuatro."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál es el propósito final de un planificador a medio plazo?",
             "opciones": ["Controlar el grado de multiprogramación.", "Maximizar el rendimiento de la CPU.", "Reforzar la técnica de tiempo compartido.", "Suspender y restaurar procesos."],
             "respuesta": "Controlar el grado de multiprogramación."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuál de los siguientes mecanismos de solución de la exclusión mutua no funciona en sistemas operativos con multiprocesamiento?",
             "opciones": ["Los semáforos de cuenta.", "La inhabilitación de interrupciones.", "Los semáforos binarios.", "La instrucción Test&Set."],
             "respuesta": "La inhabilitación de interrupciones."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un planificador a largo plazo:",
             "opciones": ["Puede permitirse implementar algoritmos complejos.", "Elige los programas que se ejecutan.", "Puede implementar políticas con o sin requisamiento.", "Requiere una actuación rápida debido a que se invoca con mucha frecuencia."],
             "respuesta": "Puede permitirse implementar algoritmos complejos."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "El requisamiento es la capacidad del sistema operativo de:",
             "opciones": ["Mover un proceso del estado 'EN EJECUCIÓN' al estado 'BLOQUEADO'.", "Mover un proceso del estado 'LISTO' al estado 'SUSPENDIDO'.", "Mover un proceso del estado 'EN EJECUCIÓN' al estado 'LISTO'.", "Mover un proceso del estado 'LISTO' al estado 'BLOQUEADO'."],
             "respuesta": "Mover un proceso del estado 'EN EJECUCIÓN' al estado 'LISTO'."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Cuando una máquina no tiene sistema operativo...",
             "opciones": ["No puede ejecutar ninguna instrucción.", "Tiene instrucciones en código máquina llamado firmware.", "No puede tener dispositivos de entrada o salida.", "Es más rápida y flexible en su funcionalidad."],
             "respuesta": "Tiene instrucciones en código máquina llamado firmware."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un sistema operativo con un despachador (dispatcher) muy complejo:",
             "opciones": ["Permitiría un mayor grado de multiprogramación.", "Reduciría los tiempos de retorno medios de los programas.", "Podría sufrir de sobrecarga.", "Provocaría un mal uso de la memoria principal."],
             "respuesta": "Podría sufrir de sobrecarga."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Señala la respuesta FALSA en relación a los sistemas operativos multiprogramados.",
             "opciones": ["Los procesos se ejecutan en paralelo.", "Tienen que gestionar problemas de concurrencia.", "Implican un sistema operativo más complejo que los monoprogramados.", "Se diseñaron para aprovechar mejor los tiempos ociosos de la CPU en los monoprogramados."],
             "respuesta": "Los procesos se ejecutan en paralelo."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Para evitar el problema de la exclusión mutua:",
             "opciones": ["En sistemas multiprocesador se deshabilitan las interrupciones.", "Hay instrucciones máquina especiales para acceder a memoria en un solo ciclo de instrucción.", "Todas las demás son ciertas.", "En sistemas monoprocesador no puede darse este problema."],
             "respuesta": "Hay instrucciones máquina especiales para acceder a memoria en un solo ciclo de instrucción."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un programa que calcula el determinante de una matriz es:",
             "opciones": ["Un programa intensivo en E/S", "Un programa xxxx por planificadores con Round-Robin.", "Un programa intensivo en CPU.", "Un programa de alta prioridad en sistemas de tiempo real."],
             "respuesta": "Un programa intensivo en CPU."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Cuál de los siguientes NO es un tipo de sistema operativo?",
             "opciones": ["Sistema operativo en tiempo real.", "Sistema operativo distribuido.", "Sistema operativo multiprocesador.", "Sistema operativo virtual."],
             "respuesta": "Sistema operativo virtual."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Qué mejora el tiempo compartido?",
             "opciones": ["Que la CPU esté lo más ociosa posible.", "Que el tiempo que tarda un proceso en comenzar a interactuar con el usuario sea muy corto.", "Que el usuario pueda ejecutar más programas.", "Que baje el grado de multiprogramación."],
             "respuesta": "Que el tiempo que tarda un proceso en comenzar a interactuar con el usuario sea muy corto."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Cuál de las siguientes operaciones es a priori más lenta?",
             "opciones": ["Completar una operación de entrada/salida.", "Atender una interrupción.", "Ejecutar una instrucción máquina.", "Las operaciones de salvar y restaurar contexto."],
             "respuesta": "Completar una operación de entrada/salida."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Un sistema con multiprocesamiento:",
             "opciones": ["Puede ejecutar múltiples procesos a la vez.", "Solo puede ejecutar un proceso a la vez.", "No puede aprovechar múltiples núcleos de CPU.", "No necesita sincronización entre procesos."],
             "respuesta": "Puede ejecutar múltiples procesos a la vez."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Cuando un sistema arranca, la memoria principal:",
             "opciones": ["Contiene el sistema operativo.", "Contiene datos de la sesión anterior.", "Está vacía.", "Se encuentra en estado de hibernación."],
             "respuesta": "Está vacía."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Sean tres sistemas operativos diferentes instalados en tres particiones diferentes de un mismo disco, en un sistema informático. ¿Cuántos firmwares necesitaremos, como MÍNIMO, para comenzar el arranque del sistema, sea cual sea el sistema operativo que queramos iniciar?",
             "opciones": ["Uno.", "Dos.", "Tres.", "El sistema puede tener varios firmwares y se decide de cual arrancar."],
             "respuesta": "Uno."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Elige, de entre los siguientes, el código que se ejecuta antes en un sistema informático:",
             "opciones": ["El código del núcleo de su sistema operativo.", "El código del primer sector, de la partición primaria activa, del dispositivo de arranque.", "El código del MBR del dispositivo de arranque.", "El código del primer proceso creado en el sistema informático."],
             "respuesta": "El código del MBR del dispositivo de arranque."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿Con qué criterio se clasifican los sistemas de tiempo compartido?",
             "opciones": ["Según la utilización de recursos.", "Según la interactividad.", "Según el número de usuarios.", "Todas las anteriores son falsas."],
             "respuesta": "Según la interactividad."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Si un sistema operativo realiza un 'arranque seguro' en un PC podemos asegurar que:",
             "opciones": ["El firmware es de tipo UEFI.", "El sistema operativo es Windows.", "Todos los discos tienen un sistema de particiones GPT.", "Todas las anteriores son ciertas."],
             "respuesta": "El firmware es de tipo UEFI."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "En un sistema con una CPU, un cierto proceso permanece en el estado EJECUCIÓN, de manera continua, durante un cierto intervalo de tiempo. Podemos afirmar que (elige la respuesta correcta más completa):",
             "opciones": ["Durante ese tiempo NO se ha ejecutado código del sistema operativo.", "Durante ese tiempo NO se ha producido ninguna interrupción software.", "Durante ese tiempo NO se ha producido ninguna interrupción hardware.", "Todas las anteriores son ciertas."],
             "respuesta": "Todas las anteriores son ciertas."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué partes de un proceso son imprescindibles para que éste exista?",
             "opciones": ["Toda la imagen del proceso.", "Su PCB.", "Su código.", "Su PCB, su código y su pila."],
             "respuesta": "Su PCB."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué es el PCB de un proceso?",
             "opciones": ["Una estructura que contiene toda la imagen del proceso.", "Una estructura con los datos del programa que originó el proceso.", "Una estructura de datos que usa única y exclusivamente el sistema operativo.", "Una estructura de datos que usa tanto el propio proceso como el sistema operativo."],
             "respuesta": "Una estructura de datos que usa única y exclusivamente el sistema operativo."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál de los siguientes decide qué proceso usará a continuación la CPU?",
             "opciones": ["El despachador.", "El planificador a corto plazo.", "Las operaciones de salvar y restaurar contexto.", "Una instrucción TRAP."],
             "respuesta": "El planificador a corto plazo."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Un proceso en estado 'LISTO':",
             "opciones": ["Está esperando por E/S.", "Se está ejecutando en la CPU.", "Está preparado para ser asignado a la CPU.", "Ha finalizado su ejecución."],
             "respuesta": "Está preparado para ser asignado a la CPU."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Cuál es la función principal del planificador a largo plazo?",
             "opciones": ["Seleccionar qué procesos pasan de la cola de entrada a la memoria principal.", "Elegir qué proceso obtiene la CPU en un instante dado.", "Suspender procesos para optimizar el uso de memoria.", "Administrar las interrupciones del procesador."],
             "respuesta": "Seleccionar qué procesos pasan de la cola de entrada a la memoria principal."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿Qué estados adicionales aparecen en el modelo de 7 estados en comparación con el modelo de 5 estados?",
             "opciones": ["LISTO/SUSPENDIDO y BLOQUEADO/SUSPENDIDO.", "LISTO/DOBLE y BLOQUEADO/DOBLE.", "EJECUTANDO/SUSPENDIDO y LISTO/SUSPENDIDO.", "SUSPENDIDO y DORMIDO."],
             "respuesta": "LISTO/SUSPENDIDO y BLOQUEADO/SUSPENDIDO."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "¿En qué momentos se pone la CPU en modo supervisor?",
             "opciones": ["Cuando un proceso toma la CPU.", "Únicamente con cada interrupción.", "Cuando el sistema operativo lo decide mediante una instrucción especial.", "Con cada interrupción y durante el arranque del sistema informático."],
             "respuesta": "Con cada interrupción y durante el arranque del sistema informático."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "En un momento dado, un proceso pasa del estado 'EJECUCIÓN' al estado 'LISTO'. ¿En cuál de los siguientes casos se puede producir dicho cambio de estado? (Señala la respuesta correcta más completa)",
             "opciones": ["En sistemas operativos con políticas de planificación a corto plazo apropiativas (con requisamiento).", "Únicamente cuando haya tiempo compartido.", "En todos los sistemas operativos que no sean monoprogramados.", "En todos los sistemas operativos."],
             "respuesta": "En sistemas operativos con políticas de planificación a corto plazo apropiativas (con requisamiento)."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "¿De qué partes consta la imagen de un proceso?",
             "opciones": ["Su PCB y el código y los datos de su fichero ejecutable.", "El código y los datos de su fichero ejecutable.", "El código y los datos de su fichero ejecutable y su pila.", "Su PCB, su pila y el código y los datos de su fichero ejecutable."],
             "respuesta": "Su PCB, su pila y el código y los datos de su fichero ejecutable."
         },
         {
+            "tema": "Tema 1",
             "pregunta": "Las interrupciones...",
             "opciones": ["Son siempre generadas por los dispositivos del sistema informático.", "Garantizan que el intercalado de procesos funcione.", "Garantizan que el sistema operativo tome el control.", "Son siempre originadas por el software."],
             "respuesta": "Garantizan que el sistema operativo tome el control."
         },
         {
+            "tema": "Tema 2",
             "pregunta": "Señala la respuesta correcta más completa referida a los sistemas operativos multihilo:",
             "opciones": ["Los procesos pueden no tener hilos.", "Los procesos no tienen estados, los tienen los hilos.", "Los hilos son ahora los propietarios de los recursos, no los procesos.", "Tiene el mismo coste crear un hilo que crear un proceso."],
             "respuesta": "Los procesos no tienen estados, los tienen los hilos."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Sea un sistema donde se ejecutan los procesos P1 y P2. S1 es un semáforo binario inicializado con valor 1. Se ejecutan las operaciones (P1: V(S1), V(S1), P(S1), V(S1)) y (P2: V(S1), V(S1), P(S1), V(S1)). ¿Qué se puede decir sobre la finalización de los procesos y el valor final de semáforo?",
             "opciones": ["Ambos procesos finalizan y S1 tendrá valor 0.", "Solo finaliza uno de los procesos y S1 tendrá valor 1.", "Finalizan ambos procesos y S1 tendrá valor 4.", "Todas las anteriores son falsas."],
             "respuesta": "Todas las anteriores son falsas."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Una sección crítica en el problema de la exclusión mutua se refiere a:",
             "opciones": ["La parte del código que utiliza recursos compartidos.", "Todo el código de un programa.", "Una parte de la memoria accesible por un solo proceso.", "Un registro de la CPU."],
             "respuesta": "La parte del código que utiliza recursos compartidos."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "Un semáforo se usa para:",
             "opciones": ["Administrar la planificación de procesos.", "Sincronizar procesos.", "Rastrear permisos de archivos.", "Asignar memoria."],
             "respuesta": "Sincronizar procesos."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuántas secciones críticas habrá en el código si se utilizan 2 variables globales compartidas, 2 semáforos y se tienen 2 procesos?",
             "opciones": ["Dos.", "Cuatro.", "Cuatro en el código de cada proceso.", "Todas las anteriores son falsas."],
             "respuesta": "Todas las anteriores son falsas."
         },
         {
+            "tema": "Tema 3",
             "pregunta": "¿Cuál es la principal diferencia entre concurrencia y paralelismo en la ejecución de programas?",
             "opciones": ["La concurrencia implica ejecutar tareas de manera simultánea, mientras que el paralelismo las ejecuta secuencialmente.", "La concurrencia implica la alternancia entre tareas, mientras que el paralelismo ejecuta varias tareas al mismo tiempo.", "El paralelismo permite que un solo hilo se ejecute a la vez, mientras que la concurrencia permite la ejecución de múltiples hilos en un solo procesador.", "La concurrencia y el paralelismo son términos sinónimos que se refieren a la misma técnica de ejecución."],
             "respuesta": "La concurrencia implica la alternancia entre tareas, mientras que el paralelismo ejecuta varias tareas al mismo tiempo."
@@ -689,6 +820,14 @@
     let bancoPreguntas = [];
     let preguntaActualIndex = 0;
     let puntaje = 0;
+    let temaSeleccionado = "Todos"; // Tema por defecto
+
+    function seleccionarTema(tema) {
+        temaSeleccionado = tema;
+        // Ocultamos la selección de temas y mostramos la de cantidades
+        document.getElementById('start-area-tema').style.display = 'none';
+        document.getElementById('start-area-cantidad').style.display = 'block';
+    }
 
     function barajarArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -698,16 +837,25 @@
     }
 
     function iniciarExamen(cantidad) {
-        let preguntasMezcladas = JSON.parse(JSON.stringify(bancoPreguntasOriginal));
+        // Filtrar por tema si no es "Todos"
+        let preguntasFiltradas = bancoPreguntasOriginal;
+        if (temaSeleccionado !== "Todos") {
+            preguntasFiltradas = bancoPreguntasOriginal.filter(p => p.tema === temaSeleccionado);
+        }
+
+        let preguntasMezcladas = JSON.parse(JSON.stringify(preguntasFiltradas));
         
         barajarArray(preguntasMezcladas);
         
-        bancoPreguntas = preguntasMezcladas.slice(0, cantidad);
+        // Ajustar la cantidad si hay menos preguntas disponibles de las solicitadas
+        const cantidadReal = Math.min(cantidad, preguntasMezcladas.length);
+        bancoPreguntas = preguntasMezcladas.slice(0, cantidadReal);
         
         preguntaActualIndex = 0;
         puntaje = 0;
         
-        document.getElementById('start-area').style.display = 'none';
+        document.getElementById('start-area-tema').style.display = 'none';
+        document.getElementById('start-area-cantidad').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'block';
         document.getElementById('result-area').style.display = 'none';
         
@@ -717,7 +865,8 @@
     function mostrarPregunta() {
         const item = bancoPreguntas[preguntaActualIndex];
         
-        document.getElementById('quiz-header').innerText = `--- Pregunta ${preguntaActualIndex + 1} de ${bancoPreguntas.length} ---`;
+        let temaEtiqueta = temaSeleccionado === "Todos" ? ` (${item.tema})` : "";
+        document.getElementById('quiz-header').innerText = `--- Pregunta ${preguntaActualIndex + 1} de ${bancoPreguntas.length}${temaEtiqueta} ---`;
         document.getElementById('question-text').innerText = item.pregunta;
         document.getElementById('feedback-area').innerText = '';
         document.getElementById('next-btn').style.display = 'none';
@@ -809,9 +958,11 @@
     }
 
     function volverAlInicio() {
-        document.getElementById('start-area').style.display = 'block';
+        document.getElementById('start-area-tema').style.display = 'block';
+        document.getElementById('start-area-cantidad').style.display = 'none';
         document.getElementById('quiz-area').style.display = 'none';
         document.getElementById('result-area').style.display = 'none';
+        temaSeleccionado = "Todos";
     }
 </script>
 
