@@ -98,9 +98,8 @@
         .option-btn:hover {
             background-color: #d5dbdb;
         }
-        .option-btn:disabled {
-            cursor: not-allowed;
-        }
+        
+        /* Modificamos disabled visual pero no funcional para permitir cambios */
         .correct {
             background-color: #2ecc71 !important;
             color: white;
@@ -117,6 +116,14 @@
             font-size: 18px;
             min-height: 30px;
         }
+        
+        /* Contenedor de los botones de navegación */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
         #next-btn, #restart-btn {
             background-color: #3498db;
             color: white;
@@ -125,10 +132,21 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 20px;
         }
         #next-btn:hover, #restart-btn:hover {
             background-color: #2980b9;
+        }
+        #prev-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #prev-btn:hover {
+            background-color: #636e72;
         }
         
         /* Estilos para el resumen de resultados */
@@ -179,7 +197,11 @@
         <div id="question-text"></div>
         <div class="options-container" id="options"></div>
         <div id="feedback-area"></div>
-        <button id="next-btn" style="display: none;" onclick="siguientePregunta()">Siguiente Pregunta</button>
+        
+        <div class="nav-buttons">
+            <button id="prev-btn" style="display: none;" onclick="preguntaAnterior()">⬅ Anterior</button>
+            <button id="next-btn" style="display: none;" onclick="siguientePregunta()">Siguiente ➡</button>
+        </div>
     </div>
 
     <div id="result-area" style="display: none;">
@@ -190,7 +212,7 @@
 </div>
 
 <script>
-    // Banco de preguntas con el tema asignado
+    // Banco de preguntas EXACTO al tuyo original
     const bancoPreguntasOriginal = [
         {
             "tema": "Tema 1",
@@ -352,7 +374,7 @@
             "tema": "Tema 2",
             "pregunta": "¿Qué es el grado de multiprogramación?",
             "opciones": ["El número de procesos en memoria principal más el número de procesos en memoria secundaria.", "El número de procesos en estado 'LISTO'.", "El número de procesos en memoria principal.", "El número de procesos en el sistema informático."],
-            "respuesta": "El número de procesos en memoria principal."
+            "respuesta": "El número de procesos en memoria principal más el número de procesos en memoria secundaria."
         },
         {
             "tema": "Tema 3",
@@ -364,7 +386,7 @@
             "tema": "Tema 1",
             "pregunta": "Un sistema informático monoprogramado:",
             "opciones": ["Contiene un código llamado monitor que implementa, entre otras funciones, el Planificador a Corto Plazo.", "Puede contener un código llamado monitor que controla el acceso a la CPU.", "Tiene que ser reiniciado para poder ejecutar un segundo programa tras finalizar el primero.", "Contiene un código llamado monitor que se sobrescribe con el código del programa a ejecutar."],
-            "respuesta": "Puede contener un código llamado monitor que controla el acceso a la CPU."
+            "respuesta": "Tiene que ser reiniciado para poder ejecutar un segundo programa tras finalizar el primero."
         },
         {
             "tema": "Tema 1",
@@ -388,7 +410,7 @@
             "tema": "Tema 1",
             "pregunta": "Ordena, de menor a mayor, el grado de abstracción de los siguientes elementos:",
             "opciones": ["Sistema operativo, aplicación de usuario, compilador.", "Aplicación de usuario, aplicación de sistema, sistema operativo.", "Firmware, Sistema operativo, Base de datos.", "Interfaz de usuario, código máquina, compilador."],
-            "respuesta": "Firmware, Sistema operativo, Base de datos."
+            "respuesta": "Interfaz de usuario, código máquina, compilador."
         },
         {
             "tema": "Tema 1",
@@ -424,7 +446,7 @@
             "tema": "Tema 3",
             "pregunta": "Señala la respuesta correcta acerca de la instrucción máquina Test&Set",
             "opciones": ["Permite que el código de las secciones críticas sea igual en todos los procesos.", "Elimina la espera activa.", "La instrucción bloquea el bus de memoria a otras CPUs.", "No puede producir interbloqueos."],
-            "respuesta": "La instrucción bloquea el bus de memoria a otras CPUs."
+            "respuesta": "Elimina la espera activa."
         },
         {
             "tema": "Tema 1",
@@ -604,7 +626,7 @@
             "tema": "Tema 3",
             "pregunta": "¿Cuántas secciones críticas habrá en el código si se utilizan 2 variables globales compartidas, 2 semáforos y se tienen 2 procesos?",
             "opciones": ["Todas las demás son falsas.", "Dos.", "Cuatro.", "Cuatro en el código de cada proceso."],
-            "respuesta": "Todas las demás son falsas"
+            "respuesta": "Cuatro."
         },
         {
             "tema": "Tema 2",
@@ -817,14 +839,13 @@
             "respuesta": "La concurrencia implica la alternancia entre tareas, mientras que el paralelismo ejecuta varias tareas al mismo tiempo."
         }
     ];
+
     let bancoPreguntas = [];
     let preguntaActualIndex = 0;
-    let puntaje = 0;
-    let temaSeleccionado = "Todos"; // Tema por defecto
+    let temaSeleccionado = "Todos";
 
     function seleccionarTema(tema) {
         temaSeleccionado = tema;
-        // Ocultamos la selección de temas y mostramos la de cantidades
         document.getElementById('start-area-tema').style.display = 'none';
         document.getElementById('start-area-cantidad').style.display = 'block';
     }
@@ -837,22 +858,25 @@
     }
 
     function iniciarExamen(cantidad) {
-        // Filtrar por tema si no es "Todos"
         let preguntasFiltradas = bancoPreguntasOriginal;
         if (temaSeleccionado !== "Todos") {
             preguntasFiltradas = bancoPreguntasOriginal.filter(p => p.tema === temaSeleccionado);
         }
 
         let preguntasMezcladas = JSON.parse(JSON.stringify(preguntasFiltradas));
-        
         barajarArray(preguntasMezcladas);
         
-        // Ajustar la cantidad si hay menos preguntas disponibles de las solicitadas
         const cantidadReal = Math.min(cantidad, preguntasMezcladas.length);
         bancoPreguntas = preguntasMezcladas.slice(0, cantidadReal);
         
+        // Preparar cada pregunta: guardar orden de opciones y limpiar respuestas previas
+        bancoPreguntas.forEach(q => {
+            q.opcionesMezcladas = [...q.opciones];
+            barajarArray(q.opcionesMezcladas);
+            q.respuestaUsuario = null; // Para guardar lo que marque el usuario
+        });
+        
         preguntaActualIndex = 0;
-        puntaje = 0;
         
         document.getElementById('start-area-tema').style.display = 'none';
         document.getElementById('start-area-cantidad').style.display = 'none';
@@ -868,51 +892,80 @@
         let temaEtiqueta = temaSeleccionado === "Todos" ? ` (${item.tema})` : "";
         document.getElementById('quiz-header').innerText = `--- Pregunta ${preguntaActualIndex + 1} de ${bancoPreguntas.length}${temaEtiqueta} ---`;
         document.getElementById('question-text').innerText = item.pregunta;
-        document.getElementById('feedback-area').innerText = '';
-        document.getElementById('next-btn').style.display = 'none';
+        
+        // Mostrar u ocultar el botón "Anterior" dependiendo de la pregunta actual
+        document.getElementById('prev-btn').style.display = (preguntaActualIndex > 0) ? 'inline-block' : 'none';
+        
+        // Mostrar "Siguiente" o "Finalizar" SÓLO si la pregunta actual ya ha sido respondida
+        if (item.respuestaUsuario) {
+            document.getElementById('next-btn').style.display = 'inline-block';
+            document.getElementById('next-btn').innerText = (preguntaActualIndex === bancoPreguntas.length - 1) ? 'Finalizar Examen' : 'Siguiente ➡';
+        } else {
+            document.getElementById('next-btn').style.display = 'none';
+        }
 
+        renderizarOpciones(item);
+    }
+
+    function renderizarOpciones(item) {
         const optionsContainer = document.getElementById('options');
+        const feedbackArea = document.getElementById('feedback-area');
         optionsContainer.innerHTML = ''; 
 
-        let opcionesMezcladas = [...item.opciones];
-        barajarArray(opcionesMezcladas);
+        let yaRespondida = item.respuestaUsuario !== null;
 
-        opcionesMezcladas.forEach(opcion => {
+        item.opcionesMezcladas.forEach(opcion => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = opcion;
-            btn.onclick = () => evaluarRespuesta(opcion, btn, item.respuesta);
+            
+            // Si ya se ha respondido, aplicamos estilos visuales para mostrar la corrección
+            if (yaRespondida) {
+                if (opcion === item.respuesta) {
+                    btn.classList.add('correct');
+                } else if (opcion === item.respuestaUsuario && opcion !== item.respuesta) {
+                    btn.classList.add('incorrect');
+                }
+            }
+
+            // Mantenemos los botones funcionales para que se pueda cambiar la respuesta si se desea
+            btn.onclick = () => {
+                item.respuestaUsuario = opcion;
+                // Renderizamos de nuevo para actualizar colores
+                renderizarOpciones(item);
+                
+                // Mostramos el botón siguiente automáticamente al responder
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.style.display = 'inline-block';
+                nextBtn.innerText = (preguntaActualIndex === bancoPreguntas.length - 1) ? 'Finalizar Examen' : 'Siguiente ➡';
+            };
+
             optionsContainer.appendChild(btn);
         });
+
+        if (yaRespondida) {
+            if (item.respuestaUsuario === item.respuesta) {
+                feedbackArea.innerText = "✅ ¡CORRECTO!";
+                feedbackArea.style.color = "#27ae60";
+            } else {
+                feedbackArea.innerText = "❌ INCORRECTO. La respuesta era: " + item.respuesta;
+                feedbackArea.style.color = "#c0392b";
+            }
+        } else {
+            feedbackArea.innerText = "";
+        }
     }
 
-    function evaluarRespuesta(seleccionada, botonSeleccionado, correcta) {
-        const botones = document.querySelectorAll('.option-btn');
-        const feedbackArea = document.getElementById('feedback-area');
-
-        botones.forEach(btn => {
-            btn.disabled = true;
-            if (btn.innerText === correcta) {
-                btn.classList.add('correct');
-            }
-        });
-
-        if (seleccionada === correcta) {
-            feedbackArea.innerText = "✅ ¡CORRECTO!";
-            feedbackArea.style.color = "#27ae60";
-            puntaje++;
-        } else {
-            botonSeleccionado.classList.add('incorrect');
-            feedbackArea.innerText = "❌ INCORRECTO. La respuesta era: " + correcta;
-            feedbackArea.style.color = "#c0392b";
+    function preguntaAnterior() {
+        if (preguntaActualIndex > 0) {
+            preguntaActualIndex--;
+            mostrarPregunta();
         }
-
-        document.getElementById('next-btn').style.display = 'inline-block';
     }
 
     function siguientePregunta() {
-        preguntaActualIndex++;
-        if (preguntaActualIndex < bancoPreguntas.length) {
+        if (preguntaActualIndex < bancoPreguntas.length - 1) {
+            preguntaActualIndex++;
             mostrarPregunta();
         } else {
             mostrarResultados();
@@ -924,20 +977,28 @@
         document.getElementById('result-area').style.display = 'block';
         
         const total = bancoPreguntas.length;
-        const fallos = total - puntaje;
         
-        let notaFinal = puntaje;
+        // Recalculamos el puntaje al final según todas las respuestas guardadas
+        let aciertos = 0;
+        bancoPreguntas.forEach(q => {
+            if (q.respuestaUsuario === q.respuesta) {
+                aciertos++;
+            }
+        });
+        
+        const fallos = total - aciertos;
+        let notaFinal = aciertos;
+        
         let htmlResumen = `
-            <p>✅ <b>Aciertos:</b> ${puntaje}</p>
+            <p>✅ <b>Aciertos:</b> ${aciertos}</p>
             <p>❌ <b>Fallos:</b> ${fallos}</p>
         `;
 
         // Aplicar penalización SOLO si el examen es de 30 preguntas
         if (total === 30) {
             const penalizacion = fallos / 3;
-            notaFinal = puntaje - penalizacion;
+            notaFinal = aciertos - penalizacion;
             
-            // Opcional: Evitar que la nota sea menor que 0
             if(notaFinal < 0) notaFinal = 0;
 
             htmlResumen += `
@@ -950,7 +1011,6 @@
             `;
         }
         
-        // Calcular porcentaje sobre 10 (ej: 6.5 / 10)
         const notaSobre10 = (notaFinal / total) * 10;
         htmlResumen += `<p><b>Calificación sobre 10:</b> ${notaSobre10.toFixed(2)}</p>`;
         
