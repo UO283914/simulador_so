@@ -179,6 +179,9 @@
         <button class="tema-btn" onclick="seleccionarTema('Tema 1')">Tema 1: Introducción a Sistemas Operativos</button>
         <button class="tema-btn" onclick="seleccionarTema('Tema 2')">Tema 2: Gestión de Procesos</button>
         <button class="tema-btn" onclick="seleccionarTema('Tema 3')">Tema 3: Coordinación y Sincronización</button>
+        <button class="tema-btn" onclick="seleccionarTema('Tema 4')">Tema 4: Gestión de Memoria</button>
+        <button class="tema-btn" onclick="seleccionarTema('Tema 5')">Tema 5: Gestión de E/S y Ficheros</button>
+        <button class="tema-btn" onclick="seleccionarTema('Segundo Parcial')">Segundo parcial (Tema 4 + Tema 5)</button>
     </div>
 
     <div id="start-area-cantidad" style="display: none;">
@@ -187,7 +190,7 @@
         <button class="cantidad-btn" onclick="iniciarExamen(30)">30 Preguntas</button>
         <button class="cantidad-btn" onclick="iniciarExamen(50)">50 Preguntas</button>
         <button class="cantidad-btn" onclick="iniciarExamen(75)">75 Preguntas</button>
-        <button class="cantidad-btn" onclick="iniciarExamen(104)">Todas</button>
+        <button class="cantidad-btn" onclick="iniciarExamen(9999)">Todas</button>
         <br><br>
         <button class="cantidad-btn" style="background-color: #7f8c8d;" onclick="volverAlInicio()">Cambiar Tema</button>
     </div>
@@ -840,6 +843,56 @@
         }
     ];
 
+
+
+    const preguntasTema45 = [
+        {
+            "tema": "Tema 4",
+            "pregunta": "La gestión de memoria busca:",
+            "opciones": [
+                "Gestionar eficientemente la jerarquía de memoria.",
+                "Ofrecer protección contra accesos inválidos.",
+                "Lograr transparencia ante los procesos.",
+                "Todas son verdaderas."
+            ],
+            "respuesta": "Todas son verdaderas."
+        },
+        {
+            "tema": "Tema 4",
+            "pregunta": "El gestor de memoria es…",
+            "opciones": [
+                "Un área de almacenamiento dividida en unidades a las que se puede referenciar a través de una dirección.",
+                "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP.",
+                "Un componente hardware que se encarga de traducir las instrucciones entre el hardware y el SO.",
+                "Ninguna es cierta."
+            ],
+            "respuesta": "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP."
+        },
+        {
+            "tema": "Tema 5",
+            "pregunta": "¿Cuáles de las siguientes afirmaciones sobre comunicación con los dispositivos son correctas?",
+            "opciones": [
+                "Los procesadores Intel utilizan mapeo de memoria para comunicarse con dispositivos como discos duros.",
+                "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno.",
+                "Cuando se realiza una operación de E/S con la técnica de E/S programada, el procesador (con instrucciones del sistema operativo) no interviene en la operación de transferencia de datos.",
+                "Ninguna de las afirmaciones restantes es correcta."
+            ],
+            "respuesta": "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno."
+        },
+        {
+            "tema": "Tema 5",
+            "pregunta": "Supongamos que estamos trabajando en un sistema en el que la técnica empleada para realizar E/S es la E/S por DMA. ¿Quién realiza la transferencia de datos?",
+            "opciones": [
+                "El controlador.",
+                "El manejador de interrupciones.",
+                "El procesador.",
+                "Ninguna de las afirmaciones restantes es correcta."
+            ],
+            "respuesta": "El controlador."
+        }
+    ];
+    bancoPreguntasOriginal.push(...preguntasTema45);
+
     let bancoPreguntas = [];
     let preguntaActualIndex = 0;
     let temaSeleccionado = "Todos";
@@ -859,7 +912,9 @@
 
     function iniciarExamen(cantidad) {
         let preguntasFiltradas = bancoPreguntasOriginal;
-        if (temaSeleccionado !== "Todos") {
+        if (temaSeleccionado === "Segundo Parcial") {
+            preguntasFiltradas = bancoPreguntasOriginal.filter(p => p.tema === "Tema 4" || p.tema === "Tema 5");
+        } else if (temaSeleccionado !== "Todos") {
             preguntasFiltradas = bancoPreguntasOriginal.filter(p => p.tema === temaSeleccionado);
         }
 
