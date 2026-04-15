@@ -846,51 +846,1206 @@
 
 
     const preguntasTema45 = [
-        {
-            "tema": "Tema 4",
-            "pregunta": "La gestión de memoria busca:",
-            "opciones": [
-                "Gestionar eficientemente la jerarquía de memoria.",
-                "Ofrecer protección contra accesos inválidos.",
-                "Lograr transparencia ante los procesos.",
-                "Todas son verdaderas."
-            ],
-            "respuesta": "Todas son verdaderas."
-        },
-        {
-            "tema": "Tema 4",
-            "pregunta": "El gestor de memoria es…",
-            "opciones": [
-                "Un área de almacenamiento dividida en unidades a las que se puede referenciar a través de una dirección.",
-                "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP.",
-                "Un componente hardware que se encarga de traducir las instrucciones entre el hardware y el SO.",
-                "Ninguna es cierta."
-            ],
-            "respuesta": "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP."
-        },
-        {
-            "tema": "Tema 5",
-            "pregunta": "¿Cuáles de las siguientes afirmaciones sobre comunicación con los dispositivos son correctas?",
-            "opciones": [
-                "Los procesadores Intel utilizan mapeo de memoria para comunicarse con dispositivos como discos duros.",
-                "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno.",
-                "Cuando se realiza una operación de E/S con la técnica de E/S programada, el procesador (con instrucciones del sistema operativo) no interviene en la operación de transferencia de datos.",
-                "Ninguna de las afirmaciones restantes es correcta."
-            ],
-            "respuesta": "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno."
-        },
-        {
-            "tema": "Tema 5",
-            "pregunta": "Supongamos que estamos trabajando en un sistema en el que la técnica empleada para realizar E/S es la E/S por DMA. ¿Quién realiza la transferencia de datos?",
-            "opciones": [
-                "El controlador.",
-                "El manejador de interrupciones.",
-                "El procesador.",
-                "Ninguna de las afirmaciones restantes es correcta."
-            ],
-            "respuesta": "El controlador."
-        }
-    ];
+  {
+    "tema": "Tema 4",
+    "pregunta": "La gestión de memoria busca:",
+    "opciones": [
+      "Gestionar eficientemente la jerarquía de memoria.",
+      "Ofrecer protección contra accesos inválidos.",
+      "Lograr transparencia ante los procesos.",
+      "Todas son verdaderas."
+    ],
+    "respuesta": "Todas son verdaderas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "El gestor de memoria es…",
+    "opciones": [
+      "Un área de almacenamiento dividida en unidades a las que se puede referenciar a través de una dirección.",
+      "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP.",
+      "Un componente hardware que se encarga de traducir las instrucciones entre el hardware y el SO.",
+      "Ninguna es cierta."
+    ],
+    "respuesta": "Un componente del SO que se encarga de las tareas básicas relacionadas con la administración de la MP."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Según bajamos en la escala de jerarquía de memoria…",
+    "opciones": [
+      "Disminuye el coste por bit.",
+      "Aumenta la capacitancia.",
+      "Aumenta el tiempo de acceso.",
+      "La primera y la tercera son ciertas."
+    ],
+    "respuesta": "La primera y la tercera son ciertas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Los programas, durante su ejecución, no acceden con la misma probabilidad a todos sus datos o instrucciones, según…",
+    "opciones": [
+      "El principio de localización de memorias.",
+      "El principio de localidad de referencias.",
+      "La teoría de segmentación de referencias.",
+      "Ninguna es cierta."
+    ],
+    "respuesta": "El principio de localidad de referencias."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La memoria caché…",
+    "opciones": [
+      "…es un buffer intermedio entre la memoria principal y los registros del procesador.",
+      "…tiene gran tamaño.",
+      "…es visible al procesador, que referencia directamente sobre la CPU.",
+      "…tiene poca velocidad."
+    ],
+    "respuesta": "…es un buffer intermedio entre la memoria principal y los registros del procesador."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La caché de disco…",
+    "opciones": [
+      "…actúa de puente entre MP y Disco.",
+      "…es un buffer intermedio entre MP y Disco.",
+      "…generalmente se implementa por software en MP.",
+      "Todas son ciertas."
+    ],
+    "respuesta": "Todas son ciertas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La traducción de direcciones lógicas a físicas en la vinculación de direcciones físicas en tiempo de ejecución se realiza:",
+    "opciones": [
+      "A través de un software especializado.",
+      "Por firmware.",
+      "Lo realiza la MMU y se hace para no degradar el rendimiento.",
+      "Se ejecuta por partes y mediante una llamada al sistema."
+    ],
+    "respuesta": "Lo realiza la MMU y se hace para no degradar el rendimiento."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La organización física de la memoria principal en particiones fijas:",
+    "opciones": [
+      "Divide la memoria en trozos estáticos del mismo tamaño.",
+      "Divide la memoria en trozos dinámicos del mismo tamaño.",
+      "Divide la memoria en trozos estáticos de distinto tamaño.",
+      "Divide la memoria en trozos dinámicos de distinto tamaño."
+    ],
+    "respuesta": "Divide la memoria en trozos estáticos de distinto tamaño."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En particiones fijas:",
+    "opciones": [
+      "El sistema operativo no ocupa ninguna partición, es independiente.",
+      "Si no hay particiones libres ha de esperar a que finalice algún proceso.",
+      "Si no hay particiones libres se espera a que se suspenda algún otro proceso.",
+      "La segunda y tercera son ciertas."
+    ],
+    "respuesta": "Si no hay particiones libres ha de esperar a que finalice algún proceso."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En particiones variables la memoria se divide en:",
+    "opciones": [
+      "Particiones dinámicas ocupadas por procesos o por el SO que varían en número y longitud y huecos de memoria libres.",
+      "Una partición fija para el sistema operativo y particiones fijas que pueden trasladarse dinámicamente en la memoria según haga falta, pero de tamaño fijo.",
+      "Se logra dar memoria a todos los procesos posibles gracias a la compactación.",
+      "Si no hay huecos con tamaño suficiente se bloquean todos los procesos, se borra la memoria y se reorganiza todo el espacio de direcciones."
+    ],
+    "respuesta": "Particiones dinámicas ocupadas por procesos o por el SO que varían en número y longitud y huecos de memoria libres."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La fragmentación externa:",
+    "opciones": [
+      "Es espacio desaprovechado.",
+      "Se produce por la entrada y salida de procesos que van fragmentando huecos no contiguos.",
+      "Se soluciona mediante la condensación y compactación.",
+      "Todas son ciertas."
+    ],
+    "respuesta": "Todas son ciertas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La organización del espacio de direcciones lógicas en paginación simple:",
+    "opciones": [
+      "Divide el espacio de direcciones de un proceso en bloques de igual tamaño.",
+      "Marcos y páginas tienen distinto tamaño y mismo desplazamiento.",
+      "Se realiza mediante tablas de marcos.",
+      "Ninguna es cierta."
+    ],
+    "respuesta": "Divide el espacio de direcciones de un proceso en bloques de igual tamaño."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En la tabla de páginas en paginación simple:",
+    "opciones": [
+      "Puede haber varias tablas por proceso, todas ellas almacenadas en su PCB.",
+      "Las tablas pueden ser estáticas o dinámicas con tantas entradas como páginas tenga el proceso.",
+      "Cada tabla almacena exclusivamente los bits de protección.",
+      "Ninguna es falsa."
+    ],
+    "respuesta": "Las tablas pueden ser estáticas o dinámicas con tantas entradas como páginas tenga el proceso."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La segmentación paginada simple:",
+    "opciones": [
+      "Es visible solo al SO.",
+      "Elimina la fragmentación interna.",
+      "Elimina la fragmentación externa.",
+      "Divide la memoria en bloques de tamaño variable denominados marcos."
+    ],
+    "respuesta": "Elimina la fragmentación externa."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La segmentación simple:",
+    "opciones": [
+      "Facilita la compartición de unidades lógicas o segmentos.",
+      "Permite proteger los segmentos.",
+      "Facilita la ampliación de las estructuras de datos.",
+      "Todas son ciertas."
+    ],
+    "respuesta": "Todas son ciertas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuál de los siguientes esquemas de gestión de memoria se ve favorecida por el uso de la técnica de compactación?",
+    "opciones": [
+      "Particiones fijas.",
+      "Segmentación paginada.",
+      "Segmentación.",
+      "Las dos primeras."
+    ],
+    "respuesta": "Segmentación."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema de memoria real con un esquema de gestión de memoria con particiones fijas. ¿Cuál de las siguientes afirmaciones es correcta?",
+    "opciones": [
+      "Todas las particiones tienen el mismo tamaño.",
+      "Provoca una menor fragmentación externa que un esquema de segmentación.",
+      "Cuando un proceso necesite dos o más particiones, serán asignadas de forma contigua.",
+      "Los procesos son asignados a la misma partición durante todo el tiempo que dure su ejecución."
+    ],
+    "respuesta": "Los procesos son asignados a la misma partición durante todo el tiempo que dure su ejecución."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuánto puede avanzar como máximo la aguja del algoritmo de reemplazo de páginas del reloj mejorado durante la selección de una página a reemplazar?",
+    "opciones": [
+      "Dos vueltas completas.",
+      "Tres vueltas completas.",
+      "Tantas como páginas tenga el proceso que genera la falta.",
+      "Ninguna es correcta."
+    ],
+    "respuesta": "Dos vueltas completas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema de memoria real con un esquema de gestión de memoria con paginación simple. ¿Qué ventaja existe en almacenar de manera completa la tabla de páginas en un TLB (registros asociativos) frente al uso de un RBTP (registro base de tabla de páginas)?",
+    "opciones": [
+      "Aumenta la velocidad de acceso a una posición de memoria correspondiente a una dirección lógica.",
+      "Reduce el tiempo empleado en el cambio de proceso.",
+      "Permite un tamaño mayor de tablas de página.",
+      "Ninguna de las anteriores."
+    ],
+    "respuesta": "Aumenta la velocidad de acceso a una posición de memoria correspondiente a una dirección lógica."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Si la velocidad a la que gira el puntero al buffer del algoritmo del reloj es muy baja para un proceso concreto, entonces podemos afirmar que:",
+    "opciones": [
+      "El grado de multiprogramación es demasiado bajo.",
+      "La mayor parte de las páginas del conjunto residente del proceso están siendo referenciadas.",
+      "La tasa de fallos de página del proceso es muy baja.",
+      "Ninguna de las anteriores respuestas es correcta."
+    ],
+    "respuesta": "La mayor parte de las páginas del conjunto residente del proceso están siendo referenciadas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En un sistema con vinculación estática de direcciones físicas:",
+    "opciones": [
+      "La MMU traduce las direcciones lógicas a físicas.",
+      "Las librerías usadas por varios programas se cargan una única vez y son compartidas por todos.",
+      "Los programas intercambiados tienen que cargarse en las mismas posiciones de memoria para poder continuar su ejecución.",
+      "El cargador es el único encargado de hacer la vinculación de direcciones."
+    ],
+    "respuesta": "Los programas intercambiados tienen que cargarse en las mismas posiciones de memoria para poder continuar su ejecución."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema de memoria real con un esquema de gestión de memoria con segmentación paginada y 32 MB de memoria principal. Si se ejecutan 3 procesos de tamaño 6 MB, 8MB y 4 MB respectivamente ¿Cuál de las siguientes estrategias de asignación provocará una menor fragmentación interna?",
+    "opciones": [
+      "Primer ajuste.",
+      "Peor ajuste.",
+      "La estrategia de asignación no influye en la fragmentación interna.",
+      "Ninguna de las anteriores."
+    ],
+    "respuesta": "La estrategia de asignación no influye en la fragmentación interna."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema de gestión de memoria virtual paginada que implementa la estrategia del conjunto de trabajo. ¿Cuál de las siguientes afirmaciones es correcta?",
+    "opciones": [
+      "Se actualizan los conjuntos de todos los procesos cada vez que uno de ellos provoca un fallo de página.",
+      "Tiene menor sobrecarga que el algoritmo de frecuencia de fallos de página.",
+      "La frecuencia de actualización del conjunto de trabajo es menor cuando la unidad de tiempo virtual utilizada es 1 ciclo de instrucción en vez de 1 referencia.",
+      "Ninguna de las anteriores."
+    ],
+    "respuesta": "Ninguna de las anteriores."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema con gestión de memoria virtual que implemente un esquema de paginación por demanda pura y una política de asignación fija. Si el número de referencias a memoria de la primera instrucción de un proceso es 5. ¿Cuántos fallos de página se habrán generado como máximo para completar la ejecución de la primera instrucción?",
+    "opciones": [
+      "5",
+      "6",
+      "4",
+      "No es posible saberlo."
+    ],
+    "respuesta": "5"
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema de memoria virtual con un esquema de gestión de memoria con segmentación paginada y un tamaño de memoria principal de 8 MB. El número máximo de segmentos por proceso es 5, el tamaño máximo de un segmento es de 64 KB y el tamaño de la página 4KB. Si las direcciones de memoria direccionan 2 bytes, ¿cuántos bits serán necesarios, como mínimo, para representar las direcciones físicas?",
+    "opciones": [
+      "22 bits, 11 para el número de marco y 11 para el desplazamiento.",
+      "22 bits, 7 para el número de marco y 15 para el desplazamiento.",
+      "17 bits, 6 para el número de marco y 11 para el desplazamiento.",
+      "Ninguna de las respuestas anteriores es correcta."
+    ],
+    "respuesta": "22 bits, 11 para el número de marco y 11 para el desplazamiento."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En las mismas condiciones del ejercicio anterior (segmentación paginada, 8 MB MP, 5 segmentos, 64 KB/segmento, 4 KB/página, 2 bytes/dirección), ¿cuántos bits serán necesarios, como mínimo, para representar las direcciones lógicas?",
+    "opciones": [
+      "20 bits, 7 para el número de segmento, 4 para el número de página y 11 para el desplazamiento dentro de la página.",
+      "18 bits, 3 para el número de segmento 4 para el número de página y 11 para el desplazamiento dentro de la página.",
+      "25 bits, 3 para el número de segmento, 11 para el número de página y 11 para el desplazamiento dentro de la página.",
+      "Ninguna es correcta."
+    ],
+    "respuesta": "18 bits, 3 para el número de segmento 4 para el número de página y 11 para el desplazamiento dentro de la página."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Un programa ejecuta un bloque de código que debe recorrer múltiples veces un vector. ¿Cuál de las siguientes implementaciones proporciona mayor localidad temporal?",
+    "opciones": [
+      "Recorrido del vector completo en cada iteración.",
+      "Recorrer una única vez el vector accediendo a cada elemento el número de veces que sea necesario de forma consecutiva.",
+      "Las dos respuestas anteriores proporcionan la misma localidad temporal ya que se accede a los elementos el mismo número de veces en ambos casos.",
+      "Ninguna de las anteriores."
+    ],
+    "respuesta": "Recorrer una única vez el vector accediendo a cada elemento el número de veces que sea necesario de forma consecutiva."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema en el que dos programas desean hacer uso de una misma librería de sistema. ¿Cuál de las siguientes afirmaciones es correcta?",
+    "opciones": [
+      "Si la gestión de memoria emplea un esquema de asignación contigua, solo será posible hacer uso de la misma librería si el sistema soporta correspondencia dinámica de direcciones.",
+      "Si el sistema soporta la carga dinámica de módulos, ambos programas compartirán la misma copia de la librería.",
+      "Si la gestión de memoria emplea un esquema de segmentación simple y la vinculación de direcciones la realiza el cargador, no es posible compartir la misma copia de la librería.",
+      "Ninguna de las anteriores."
+    ],
+    "respuesta": "Ninguna de las anteriores."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En la segmentación paginada virtual, ¿en qué estructura de datos se almacenan los bits de presencia?",
+    "opciones": [
+      "En las tablas de segmentos.",
+      "En las tablas de páginas.",
+      "En la tabla de marcos de página.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "En las tablas de páginas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema con gestión de memoria virtual que implementa un esquema de paginación por demanda pura y una política de asignación variable. Si el número de referencias a memoria de la primera instrucción de un proceso es 5. ¿Cuántos fallos de página se habrán generado como máximo para completar la ejecución de la primera instrucción?",
+    "opciones": [
+      "5",
+      "6",
+      "4",
+      "No es posible saberlo."
+    ],
+    "respuesta": "No es posible saberlo."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un sistema operativo con un esquema de gestión de memoria de paginación virtual y un tamaño de memoria principal de 8 MB. El tamaño máximo de un proceso es de 128 KB y el tamaño de la página 4KB. Si las direcciones de memoria direccionan 4 bytes, ¿cuántos bits serán necesarios, como mínimo, para representar las direcciones físicas?",
+    "opciones": [
+      "23 bits, 11 para el número de marco y 12 para el desplazamiento.",
+      "22 bits, 11 para el número de marco y 11 para el desplazamiento.",
+      "21 bits, 11 para el número de marco y 10 para el desplazamiento.",
+      "Ninguna de las respuestas anteriores es correcta."
+    ],
+    "respuesta": "21 bits, 11 para el número de marco y 10 para el desplazamiento."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En las mismas condiciones del ejercicio anterior (paginación virtual, 8 MB MP, proceso máx 128 KB, página 4 KB, 4 bytes/dirección), ¿cuántos bits serían necesarios, como mínimo, para representar las direcciones lógicas?",
+    "opciones": [
+      "El número total de bits de la dirección lógica coincide con el número total de bits de la dirección física en las condiciones descritas.",
+      "16 bits, 5 para el número de página y 11 para el desplazamiento.",
+      "15 bits, 5 para el número de página y 10 para el desplazamiento.",
+      "Ninguna de las respuestas anteriores es correcta."
+    ],
+    "respuesta": "15 bits, 5 para el número de página y 10 para el desplazamiento."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea EDL el tamaño, en número de direcciones lógicas válidas, del espacio de direcciones lógicas de un proceso. Sea DLMA el valor, en decimal, de la dirección lógica válida más alta de un proceso. ¿En cuál de los siguientes esquemas de gestión de memoria DLMA podría llegar a ser mayor que EDL?",
+    "opciones": [
+      "En particiones variables.",
+      "En paginación simple.",
+      "En segmentación simple.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "En segmentación simple."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Qué elementos, de entre los siguientes (sistema operativo, MMU y procesador), conoce la ubicación y tamaño de las particiones en un esquema de gestión de memoria de particiones fijas?",
+    "opciones": [
+      "Únicamente el sistema operativo y la MMU.",
+      "El sistema operativo, la MMU y el procesador.",
+      "Únicamente el sistema operativo y el procesador.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Únicamente el sistema operativo y la MMU."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿En un esquema de gestión de memoria virtual paginada que usa TLB para la traducción de direcciones, qué característica comparten todas las páginas que están en la TLB?",
+    "opciones": [
+      "Todas ellas tienen el bit de presencia activado.",
+      "Todas ellas tienen el bit de modificación activado.",
+      "Todas ellas tienen el bit de referencia activado.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Todas ellas tienen el bit de presencia activado."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En un sistema informático cuyo sistema operativo implementa un esquema de gestión de memoria virtual de segmentación paginada se están ejecutando varios procesos concurrentes. En un momento dado existen varios marcos de página libres y un proceso produce un fallo de página para cuya gestión no se utiliza ninguno de los marcos mencionados. Podemos asegurar que la política de reemplazo tiene un alcance:",
+    "opciones": [
+      "Variable",
+      "Fijo",
+      "Global",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Fijo"
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿En cuál/es de las siguientes políticas de reemplazo de páginas NO se tiene en cuenta el valor del bit de referencia de las potenciales páginas víctima?",
+    "opciones": [
+      "En NRU.",
+      "En ninguna de las posibles implementaciones de LRU (OJO, no incluir aquí las aproximaciones a LRU).",
+      "En ninguna de las aproximaciones a LRU.",
+      "Hay más de una respuesta correcta entre las anteriores."
+    ],
+    "respuesta": "Hay más de una respuesta correcta entre las anteriores."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En la definición de conjunto de trabajo (OJO: descartar aproximaciones de cualquier tipo) se habla del concepto 'tiempo virtual' relacionado con cada proceso. ¿A qué se refiere dicho concepto, suponiendo un esquema de gestión de memoria de paginación virtual?",
+    "opciones": [
+      "Al tiempo que ha pasado desde que cada proceso tomó el control del procesador por primera vez hasta el instante de tiempo actual.",
+      "Al tiempo que habría pasado desde que cada proceso hubiera tomado el control del procesador por primera vez hasta el instante de tiempo actual si el proceso no tuviera que competir con otros procesos por ningún tipo de recurso.",
+      "Al tiempo que ha pasado desde la última vez que cada proceso produjo una falta de página hasta el instante de tiempo actual.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Al tiempo que habría pasado desde que cada proceso hubiera tomado el control del procesador por primera vez hasta el instante de tiempo actual si el proceso no tuviera que competir con otros procesos por ningún tipo de recurso."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Elige la respuesta correcta, supuesto un esquema de gestión de memoria virtual con paginación por demanda pura:",
+    "opciones": [
+      "Toda falta de página implica la elección de una página víctima.",
+      "Toda página elegida como página víctima tiene que ser escrita en memoria secundaria antes de proceder a la carga de la página que produjo la falta de página.",
+      "Todo reemplazo de página es consecuencia de una falta de página.",
+      "Hay más de una respuesta correcta entre las anteriores."
+    ],
+    "respuesta": "Todo reemplazo de página es consecuencia de una falta de página."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "El problema de la fragmentación externa:",
+    "opciones": [
+      "Aparece en todos los esquemas de gestión de memoria real de asignación contigua.",
+      "Aparece en todos los esquemas de asignación contigua de espacio en disco.",
+      "Las dos anteriores son correctas.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Las dos anteriores son correctas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Sea un esquema de gestión de memoria de segmentación paginada simple. La dirección lógica está formada por s bits para el número de segmento, p para el número de página y d para el desplazamiento dentro de la página. La dirección física utiliza m bits para el número de marco de página. Podemos asegurar que:",
+    "opciones": [
+      "s+p<m.",
+      "s+p=m.",
+      "s+p+d<m.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "s+p=m."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Un esquema de gestión de memoria de paginación simple en el que el tamaño de página es mayor que el tamaño de cualquier proceso degenera en:",
+    "opciones": [
+      "Particiones fijas.",
+      "Particiones variables.",
+      "Segmentación simple.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Ninguna de las anteriores es correcta."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En un sistema informático con traducción de direcciones en tiempo de ejecución, ¿cuáles de las siguientes afirmaciones son correctas?",
+    "opciones": [
+      "La traducción la realiza el sistema operativo.",
+      "El sistema operativo debe transferir información a la Unidad de Gestión de Memoria cada vez que se pasa a ejecutar un proceso.",
+      "No es el tipo de traducción que habitualmente se utiliza en los sistemas actuales.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El sistema operativo debe transferir información a la Unidad de Gestión de Memoria cada vez que se pasa a ejecutar un proceso."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre protección de memoria son correctas?",
+    "opciones": [
+      "La protección de memoria consiste en evitar que desde un proceso se pueda acceder a la parte de código donde están las instrucciones correspondientes a dicho programa.",
+      "La protección de memoria consiste en evitar que de un proceso se acceda a direcciones de memoria principal asignadas a otro proceso diferente.",
+      "El control de acceso a direcciones de memoria principal lo lleva a cabo el hardware y sólo interviene el sistema operativo si hay un intento de acceso improcedente.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "La protección de memoria consiste en evitar que de un proceso se acceda a direcciones de memoria principal asignadas a otro proceso diferente."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre direcciones lógicas y físicas son correctas?",
+    "opciones": [
+      "Las direcciones lógicas son direcciones relativas al espacio de direcciones del programa en el que se utilizan.",
+      "La traducción, correspondencia o reubicación de direcciones transforma direcciones lógicas en direcciones físicas.",
+      "Las direcciones a las que se hace referencia dentro del código de un programa cuando éste se compila son direcciones lógicas.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Las direcciones lógicas son direcciones relativas al espacio de direcciones del programa en el que se utilizan."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre esquemas de asignación de memoria son correctas?",
+    "opciones": [
+      "En un esquema de memoria virtual, el número de procesos cargados en memoria no es proporcional al tamaño de los mismos.",
+      "En un esquema de gestión de memoria real de asignación contigua con particiones fijas el número de procesos cargados en memoria es proporcional al tamaño de los procesos.",
+      "En un esquema de gestión de memoria virtual el tamaño de los procesos puede ser mayor que el tamaño de la memoria principal.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "En un esquema de gestión de memoria virtual el tamaño de los procesos puede ser mayor que el tamaño de la memoria principal."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre gestión de memoria virtual son correctas?",
+    "opciones": [
+      "En un sistema con gestión de memoria virtual con paginación se produce una interrupción cada vez que la dirección referenciada en una instrucción no se encuentra en memoria.",
+      "La traducción de direcciones a través de la tabla de páginas la realiza el sistema operativo.",
+      "La TLB guarda las últimas páginas referenciadas de un proceso.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "En un sistema con gestión de memoria virtual con paginación se produce una interrupción cada vez que la dirección referenciada en una instrucción no se encuentra en memoria."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre políticas de gestión de fallos de página son correctas?",
+    "opciones": [
+      "En un sistema de paginación por demanda, el sistema operativo trae la página demandada y las anteriores y posteriores a ella.",
+      "El sistema operativo se encarga de la gestión de los fallos de página mientras que el hardware se encarga de la traducción de direcciones y de la protección.",
+      "En las políticas de reemplazo de alcance local se sustituye una página de un proceso por otra de otro proceso cualquiera.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El sistema operativo se encarga de la gestión de los fallos de página mientras que el hardware se encarga de la traducción de direcciones y de la protección."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre políticas de asignación de páginas son correctas?",
+    "opciones": [
+      "En una estrategia de asignación fija, las páginas cargadas en memoria de un proceso son siempre las mismas durante toda su ejecución.",
+      "Si el número de marcos asignados a un proceso es demasiado grande se puede producir hiperpaginación.",
+      "Los algoritmos de reemplazo LRU y reloj son aproximaciones basadas en el Principio de Localidad de referencias.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Los algoritmos de reemplazo LRU y reloj son aproximaciones basadas en el Principio de Localidad de referencias."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre la estrategia del conjunto de trabajo son correctas?",
+    "opciones": [
+      "En la estrategia del conjunto de trabajo el número de marcos asignados a un proceso es fijo.",
+      "La estrategia del conjunto de trabajo establece una ventana y mantiene en memoria las páginas referenciadas en la misma.",
+      "En la estrategia del conjunto de trabajo el número de marcos asignados a un proceso es variable.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "La estrategia del conjunto de trabajo establece una ventana y mantiene en memoria las páginas referenciadas en la misma."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En un sistema de gestión de memoria virtual con paginación en el que se asignan al proceso 4 marcos de página de manera fija, y que inicialmente no contienen nada; dada la cadena de referencias: 8,1,3,1,4,3,5,1,3,4,9,4,3,1,6,3,1,3,4,8,1,3,4. ¿Cuáles de las siguientes afirmaciones son correctas?",
+    "opciones": [
+      "Utilizando el algoritmo de reemplazo FIFO se generan 12 fallos de página.",
+      "Utilizando el algoritmo de reemplazo LRU se generan 7 fallos de página.",
+      "Utilizando el algoritmo de reemplazo del Reloj se generan 12 fallos de página.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Utilizando el algoritmo de reemplazo LRU se generan 7 fallos de página."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuáles de las siguientes tareas corresponden al sistema operativo en la gestión de memoria virtual?",
+    "opciones": [
+      "Generar excepción de fallo de página.",
+      "Escoger la página víctima.",
+      "Actualizar la tabla de páginas.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Escoger la página víctima."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuál de las siguientes funciones NO pertenece a la gestión de memoria?",
+    "opciones": [
+      "Carga de 'cargador de arranque' (bootloader) en memoria principal.",
+      "Permitir la compartición de memoria entre procesos.",
+      "Ofrecer acceso controlado a recursos.",
+      "Independizar la ejecución de los procesos de su ubicación física."
+    ],
+    "respuesta": "Carga de 'cargador de arranque' (bootloader) en memoria principal."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Respecto al algoritmo de reemplazo FIFO:",
+    "opciones": [
+      "La página víctima es la que más tiempo lleva en el conjunto residente.",
+      "La página víctima es la que más tiempo lleva sin ser modificada.",
+      "La página víctima es la última que llegó al conjunto residente.",
+      "La página víctima es la que más tiempo lleva sin ser referenciada."
+    ],
+    "respuesta": "La página víctima es la que más tiempo lleva en el conjunto residente."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La principal ventaja del esquema de memoria de particiones fijas es que:",
+    "opciones": [
+      "No necesita MMU.",
+      "Minimiza la fragmentación externa.",
+      "Genera poca sobrecarga.",
+      "Maximiza el nivel de multiprogramación."
+    ],
+    "respuesta": "Genera poca sobrecarga."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En una jerarquía de memoria se cumple que:",
+    "opciones": [
+      "Niveles más bajos son más rápidos.",
+      "Niveles más altos son más baratos.",
+      "Niveles más bajos ofrecen mayor capacidad.",
+      "Niveles más altos ofrecen mayor capacidad."
+    ],
+    "respuesta": "Niveles más bajos ofrecen mayor capacidad."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En memoria virtual, la principal utilidad del bit de modificación es:",
+    "opciones": [
+      "Discriminar las páginas que deben ser escritas en disco.",
+      "Ayudar al sistema operativo a calcular el tamaño del conjunto residente.",
+      "Ayudar a seleccionar la siguiente página a cargar.",
+      "Permitir saber si una página ha sido referenciada."
+    ],
+    "respuesta": "Discriminar las páginas que deben ser escritas en disco."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Qué operaciones deben realizarse obligatoriamente para reducir al mínimo posible la fragmentación externa en los esquemas de memoria que la padecen?",
+    "opciones": [
+      "La operación de condensación primero y la de compactación después.",
+      "La operación de condensación.",
+      "La operación de condensación varias veces seguidas.",
+      "La operación de compactación."
+    ],
+    "respuesta": "La operación de condensación."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Un proceso de tamaño 1024 bytes en un sistema de memoria virtual de paginación bajo demanda simple (no pura):",
+    "opciones": [
+      "Generará más fallos de página cuanto mayor sea el tamaño de página.",
+      "Puede generar una dirección virtual válida mayor que su tamaño.",
+      "No puede generar fallos de página si el tamaño de página es mayor o igual a 1 KB.",
+      "Producirá exactamente 4 fallos de página al ejecutarse completamente si el tamaño de página es de 256 bytes."
+    ],
+    "respuesta": "No puede generar fallos de página si el tamaño de página es mayor o igual a 1 KB."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Entre los esquemas de memoria no contiguas de memoria real, la paginación simple es especialmente indicada para:",
+    "opciones": [
+      "Minimizar la fragmentación interna.",
+      "Permitir a quien programa la definición de bloques a mapear en memoria.",
+      "Permitir direcciones lógicas mayores que las físicas.",
+      "Compartir porciones de memoria entre procesos."
+    ],
+    "respuesta": "Compartir porciones de memoria entre procesos."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Señala la respuesta correcta referida al esquema de memoria de paginación simple:",
+    "opciones": [
+      "Cuando varios procesos comparten memoria todos ellos tienen cargados los mismos números de página en los marcos que comparten.",
+      "Las tablas de páginas de los procesos tienen las mismas entradas que las tablas de marcos de los procesos.",
+      "Las tablas de páginas de los procesos permiten compartir memoria real entre los mismos.",
+      "Todas las demás son ciertas."
+    ],
+    "respuesta": "Las tablas de páginas de los procesos permiten compartir memoria real entre los mismos."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En el esquema de memoria de segmentación simple:",
+    "opciones": [
+      "Se necesitan dos accesos a memoria para realizar el proceso de traducción.",
+      "Hay una Tabla de Segmentos única en el sistema.",
+      "El registro Base de la Tabla de Páginas está almacenada en un hardware dedicado específico para mejorar la eficiencia.",
+      "No puede haber direcciones repetidas en distintos segmentos."
+    ],
+    "respuesta": "Se necesitan dos accesos a memoria para realizar el proceso de traducción."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En memoria virtual, la hiperpaginación consiste en:",
+    "opciones": [
+      "La división de un proceso en muchas páginas de pequeño tamaño.",
+      "La generación de altas tasas de fallos de página.",
+      "El uso de páginas de tamaño mayor o igual al del proceso.",
+      "Todas las demás son falsas."
+    ],
+    "respuesta": "La generación de altas tasas de fallos de página."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En la tabla de segmentos de un proceso:",
+    "opciones": [
+      "Hay tantas direcciones base como segmentos tiene el proceso.",
+      "Hay tantas entradas como la siguiente expresión: tamaño de proceso / máximo tamaño del segmento.",
+      "No puede haber bits de protección.",
+      "Todas son ciertas."
+    ],
+    "respuesta": "Hay tantas direcciones base como segmentos tiene el proceso."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Qué estrategia de asignación es más adecuada para un esquema de memoria de segmentación paginada?",
+    "opciones": [
+      "Primer ajuste.",
+      "Mejor ajuste.",
+      "Peor ajuste.",
+      "En este esquema de memoria es irrelevante la estrategia de asignación, todas son adecuadas."
+    ],
+    "respuesta": "En este esquema de memoria es irrelevante la estrategia de asignación, todas son adecuadas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "En gestión de memoria, la fragmentación interna (selecciona la respuesta cierta más completa):",
+    "opciones": [
+      "Es mínima con procesos más pequeños.",
+      "Es característica de un esquema de particiones fijas.",
+      "Se mide en unidades de memoria (KB, MB…).",
+      "Todas las anteriores son verdaderas."
+    ],
+    "respuesta": "Todas las anteriores son verdaderas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Podemos asegurar que la CPU genera direcciones lógicas cuando…",
+    "opciones": [
+      "El sistema operativo es monoprogramado.",
+      "No existe una MMU.",
+      "La traducción de direcciones se hace en tiempo de carga.",
+      "La traducción de direcciones es estática."
+    ],
+    "respuesta": "La traducción de direcciones se hace en tiempo de carga."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿En cuál de los siguientes esquemas de memoria es más grave la fragmentación?",
+    "opciones": [
+      "Paginación fija.",
+      "Paginación variable.",
+      "Segmentación con paginación.",
+      "Segmentación."
+    ],
+    "respuesta": "Segmentación."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Qué de los siguientes no tiene problemas de fragmentación?",
+    "opciones": [
+      "Particiones fijas.",
+      "Segmentación con paginación.",
+      "Segmentación.",
+      "Particiones variables."
+    ],
+    "respuesta": "Segmentación con paginación."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿En cuál de los siguientes sistemas operativos de memoria podemos asegurar que las direcciones lógicas son las mismas que las direcciones físicas?",
+    "opciones": [
+      "En sistemas monoprogramados.",
+      "En sistemas con memoria virtual.",
+      "En sistemas con segmentación paginada.",
+      "En sistemas con paginación simple."
+    ],
+    "respuesta": "En sistemas monoprogramados."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Qué contiene el registro límite de la MMU?",
+    "opciones": [
+      "La dirección de la tabla de segmentos del proceso en ejecución.",
+      "La dirección base del proceso en ejecución.",
+      "El tamaño en bytes de la tabla de segmentos del proceso en ejecución.",
+      "El tamaño en bytes de la tabla de páginas del proceso en ejecución."
+    ],
+    "respuesta": "El tamaño en bytes de la tabla de segmentos del proceso en ejecución."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "La jerarquía de memoria:",
+    "opciones": [
+      "Los niveles más altos tienen mayor capacidad.",
+      "Los niveles más altos son más baratos.",
+      "Los niveles más bajos son más rápidos.",
+      "Los niveles más bajos tienen mayor capacidad."
+    ],
+    "respuesta": "Los niveles más bajos tienen mayor capacidad."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿En qué esquemas de memoria podemos emplear sistemas operativos monoprogramados? (Selecciona la respuesta cierta más completa)",
+    "opciones": [
+      "Solo en esquemas de monoprogramación continua.",
+      "Solo en esquemas de monitor y proceso único.",
+      "En todos los esquemas en los que no existe una MMU.",
+      "En todos los anteriores."
+    ],
+    "respuesta": "En todos los anteriores."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "El mayor riesgo de emplear memoria virtual es:",
+    "opciones": [
+      "Que el sistema operativo invierta más tiempo gestionando fallos de paginación que ejecutando programas.",
+      "Que los procesos más grandes monopolicen la memoria haciendo que los procesos más pequeños sufran más fallos de paginación.",
+      "Que los procesos más grandes de memoria secundaria necesiten más tiempo para ejecutarse que los procesos de memoria real.",
+      "Que los procesos más intensivos respecto al uso de CPU sufran de inanición."
+    ],
+    "respuesta": "Que el sistema operativo invierta más tiempo gestionando fallos de paginación que ejecutando programas."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Una dirección virtual es:",
+    "opciones": [
+      "Una dirección física para evitar el uso de registros límite.",
+      "Una herramienta para usar un esquema de memoria virtual.",
+      "Una dirección lógica gestionada por un esquema de memoria virtual.",
+      "La única forma de compartir recursos entre procesos."
+    ],
+    "respuesta": "Una dirección lógica gestionada por un esquema de memoria virtual."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Respecto al algoritmo de reemplazo FIFO (desde el punto de vista de la página víctima):",
+    "opciones": [
+      "La página víctima es aquella que ha estado más tiempo en el sistema.",
+      "La página víctima es aquella que ha estado menos tiempo en el sistema.",
+      "La página víctima es aquella que tiene más referencias.",
+      "La página víctima es aquella que tiene menos referencias."
+    ],
+    "respuesta": "La página víctima es aquella que ha estado más tiempo en el sistema."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "¿Cuál es el propósito principal de la técnica de memoria virtual?",
+    "opciones": [
+      "Reducir el número de E/S en el sistema operativo.",
+      "Aumentar el grado de multiprogramación.",
+      "Simplificar las estructuras de datos usadas por el SO en la gestión de memoria.",
+      "Reducir el número de fallos de página."
+    ],
+    "respuesta": "Aumentar el grado de multiprogramación."
+  },
+  {
+    "tema": "Tema 4",
+    "pregunta": "Dado un proceso, ¿cuál de las siguientes situaciones provoca, a priori, un mayor número de fallos de página en dicho proceso?",
+    "opciones": [
+      "Que el tamaño del proceso sea pequeño.",
+      "Que el proceso tenga muchos saltos en el código.",
+      "Que el proceso tenga pocos saltos en el código y pocos bucles.",
+      "Que el proceso tenga muchos marcos asignados."
+    ],
+    "respuesta": "Que el proceso tenga pocos saltos en el código y pocos bucles."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre comunicación con los dispositivos son correctas?",
+    "opciones": [
+      "Los procesadores Intel utilizan mapeo de memoria para comunicarse con dispositivos como discos duros.",
+      "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno.",
+      "Cuando se realiza una operación de E/S con la técnica de E/S programada, el procesador (con instrucciones del sistema operativo) no interviene en la operación de transferencia de datos.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Los controladores SCSI o IDE pueden manejar varios dispositivos de almacenamiento cada uno."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Supongamos que estamos trabajando en un sistema en el que la técnica empleada para realizar E/S es la E/S por DMA. ¿Quién realiza la transferencia de datos?",
+    "opciones": [
+      "El controlador.",
+      "El manejador de interrupciones.",
+      "El procesador.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El controlador."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre transferencia y hardware son correctas?",
+    "opciones": [
+      "Los controladores tipo Serial ATA, IDE o SCSI se comunican con el sistema operativo.",
+      "En las arquitecturas que utilizan los registros 'mapeados' en memoria, es necesario utilizar instrucciones especiales como portin y portout.",
+      "En la E/S por DMA no es necesario el uso de interrupciones.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Ninguna de las afirmaciones restantes es correcta."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre el funcionamiento del SO en el manejo de una operación de E/S son correctas?",
+    "opciones": [
+      "El Bloque de Petición de E/S (IORB) guarda la información necesaria para que el manejador del dispositivo comunique al controlador la petición requerida y ésta pueda ser llevada a cabo.",
+      "Gracias a la caché de memoria no todas las operaciones de acceso a datos del disco necesitan enviar una operación al manejador del disco correspondiente.",
+      "Existe una cola de peticiones IORBs para cada proceso de usuario que se ejecuta.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El Bloque de Petición de E/S (IORB) guarda la información necesaria para que el manejador del dispositivo comunique al controlador la petición requerida y ésta pueda ser llevada a cabo."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes son funciones del sistema de Gestión de E/S?",
+    "opciones": [
+      "Facilitar el manejo de ficheros.",
+      "Permitir el acceso a nuevas conexiones de dispositivos.",
+      "Gestionar el spool de la impresora.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Permitir el acceso a nuevas conexiones de dispositivos."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Supongamos que un manejador de disco ha recibido peticiones sobre las siguientes pistas en este orden de llegada: 15,28,60,28,61,15,60,23,61,60,14. El disco dispone de 70 pistas numeradas de la 1 a la 70. La única cabeza se encuentra inicialmente en la pista 35. ¿Cuántas pistas recorrerá en total la cabeza según la política?",
+    "opciones": [
+      "69 pistas con SSTF (Menor tiempo restante).",
+      "162 pistas con Scan circular.",
+      "124 pistas con Look circular.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Ninguna de las afirmaciones restantes es correcta."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre el concepto de fichero son correctas?",
+    "opciones": [
+      "En los sistemas de ficheros habitualmente utilizados por Windows o Linux, existen ficheros con formato interpretable por el sistema operativo.",
+      "En los sistemas de ficheros habitualmente utilizados por Windows o Linux el sistema interpreta todos los ficheros únicamente como una secuencia de bytes.",
+      "Una característica básica de los ficheros es su persistencia (no volatilidad).",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Una característica básica de los ficheros es su persistencia (no volatilidad)."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre el método de acceso a ficheros son correctas?",
+    "opciones": [
+      "El acceso secuencial a los datos de un fichero implica tener que leer los registros (bytes) anteriores antes de llegar al registro (byte) deseado.",
+      "El acceso directo consiste en colocarse y leer un registro (byte) concreto del fichero.",
+      "El acceso indexado es típico de sistemas de ficheros de Windows y Linux.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El acceso secuencial a los datos de un fichero implica tener que leer los registros (bytes) anteriores antes de llegar al registro (byte) deseado."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes son funciones del gestor de ficheros?",
+    "opciones": [
+      "Localizar bloques de un fichero en el disco.",
+      "Garantizar integridad y validad de los datos de los ficheros.",
+      "Buscar espacio libre en disco para asignarlo a un fichero.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Localizar bloques de un fichero en el disco."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre características de los sistemas de ficheros son correctas?",
+    "opciones": [
+      "El journaling es una técnica para permitir la ampliación de los ficheros a varios dispositivos.",
+      "El sistema de ficheros ext2 utiliza un árbol equilibrado para la localización de bloques de datos de los ficheros.",
+      "El sistema de ficheros NTFS utiliza un árbol equilibrado para la localización de bloques de datos de los ficheros.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El sistema de ficheros NTFS utiliza un árbol equilibrado para la localización de bloques de datos de los ficheros."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre sistemas de ficheros FFS/ext2 y Unix SystemV son correctas?",
+    "opciones": [
+      "En un sistema de ficheros FFS o ext2, se reduce el tiempo de búsqueda de los datos porque los bloques de un mismo fichero se almacenan, si es posible, en el mismo cilindro o cilindros cercanos.",
+      "En un sistema de ficheros FFS o ext2, para aumentar la fiabilidad se guarda una copia del superbloque en cada grupo de cilindros.",
+      "En un sistema de ficheros tipo Unix SystemV los nodos-i se almacenan en una zona del sistema de ficheros específica para ello.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "En un sistema de ficheros FFS o ext2, para aumentar la fiabilidad se guarda una copia del superbloque en cada grupo de cilindros."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre el contenido del directorio son correctas?",
+    "opciones": [
+      "Algunos sistemas de ficheros almacenan en el directorio todos los atributos de los ficheros que pertenecen al mismo.",
+      "Algunos sistemas de ficheros almacenan en cada directorio el contenido completo o parte del fichero.",
+      "Algunos sistemas de ficheros almacenan en el directorio el nombre de los ficheros que pertenecen al mismo y una referencia para localizar el descriptor del fichero.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "Algunos sistemas de ficheros almacenan en el directorio todos los atributos de los ficheros que pertenecen al mismo."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre gestión de ficheros son correctas?",
+    "opciones": [
+      "Los sistemas de ficheros FAT no se utilizan actualmente en discos duros de tamaños muy grandes.",
+      "Los mapas de bits para gestionar bloques libres contienen tantos bits como bloques libres haya en el sistema de ficheros.",
+      "El mapa de bits para gestionar bloques libres se guarda en el descriptor del fichero.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "Los sistemas de ficheros FAT no se utilizan actualmente en discos duros de tamaños muy grandes."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Qué estructura de datos utiliza un sistema de ficheros contiguos para la localización de sus bloques en disco?",
+    "opciones": [
+      "Lista enlazada de bloques de datos.",
+      "Lista de índices.",
+      "Árbol equilibrado.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "Ninguna de las restantes respuestas es correcta."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre semejanzas entre gestión de ficheros y gestión de memoria son correctas?",
+    "opciones": [
+      "La gestión de los ficheros con asignación contigua se asemeja a la gestión de memoria real con particiones dinámicas.",
+      "La gestión de los ficheros con asignación contigua se asemeja a la gestión de memoria real con particiones fijas.",
+      "La gestión de los ficheros con asignación no contigua se asemeja a la gestión de memoria real con paginación.",
+      "La gestión de los ficheros con asignación no contigua se asemeja a la gestión de memoria real con segmentación."
+    ],
+    "respuesta": "La gestión de los ficheros con asignación contigua se asemeja a la gestión de memoria real con particiones dinámicas."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre sistemas de ficheros son correctas?",
+    "opciones": [
+      "Cada sistema operativo puede gestionar más de un tipo de sistemas de ficheros.",
+      "En los sistemas de ficheros FAT la localización del primer bloque se hace a través del directorio y el resto a través de la FAT.",
+      "En los sistemas de ficheros System V el contenido de los inodos se guardan dentro de los directorios.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "Cada sistema operativo puede gestionar más de un tipo de sistemas de ficheros."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Cuáles de las siguientes afirmaciones sobre NTFS son correctas?",
+    "opciones": [
+      "Los sistemas de ficheros NTFS guardan parte del contenido del fichero en la propia MFT.",
+      "NTFS utiliza la técnica de journaling que consiste en guardar dos copias iguales de la MFT.",
+      "El sistema de ficheros se comunica con el sistema de gestión de E/S en todas y cada una de las operaciones de lectura de datos de un fichero.",
+      "Ninguna de las restantes respuestas es correcta."
+    ],
+    "respuesta": "Los sistemas de ficheros NTFS guardan parte del contenido del fichero en la propia MFT."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Sea un sistema de ficheros FAT32 montado sobre una memoria USB de 40M en el que se establecen bloques de 4K. ¿Cuáles de las siguientes afirmaciones son correctas?",
+    "opciones": [
+      "El tamaño de la FAT será de 40K.",
+      "La FAT ocupará 10 bloques del disco.",
+      "Con una FAT32 no podemos gestionar una partición de 16Gbytes si el tamaño del bloque es de 4K.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "El tamaño de la FAT será de 40K."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Sea un sistema de ficheros tipo SystemV con una tabla de índices de 13 entradas y tamaño de bloque de 1K. ¿Cuáles de las siguientes afirmaciones son correctas?",
+    "opciones": [
+      "Para localizar el número de bloque en el disco donde se encuentra el byte 125 de un fichero basta con acceder a la entrada 0 de la tabla de índices.",
+      "Para localizar el número de bloque en disco donde se encuentra el bloque 12 del fichero basta con acceder a la entrada 12 de la tabla de índices.",
+      "Para localizar el número de bloque en disco donde se encuentra bloque 13 del fichero habrá que acceder a la entrada 3 del bloque de índices que se localiza a partir de la entrada 10 de la tabla de índices.",
+      "Ninguna de las restantes es correcta."
+    ],
+    "respuesta": "Para localizar el número de bloque en el disco donde se encuentra el byte 125 de un fichero basta con acceder a la entrada 0 de la tabla de índices."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "El número de drivers de dispositivos que necesita en un momento dado un sistema operativo es igual:",
+    "opciones": [
+      "Al número total de dispositivos conectados al ordenador en ese momento.",
+      "Al número de tipos de técnicas de entrada/salida (programada, por interrupciones y/o DMA) que implemente el sistema operativo para dialogar con todos los dispositivos conectados en ese momento.",
+      "A la cantidad de operaciones de entrada/salida pendientes de finalizar en ese momento.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Ninguna de las anteriores es correcta."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Una de las opciones para comunicar el procesador con la controladora de un dispositivo consiste en la utilización de correspondencia en memoria. ¿Qué característica tiene (entre otras) dicha comunicación?",
+    "opciones": [
+      "NO puede ser utilizada en entrada/salida programada.",
+      "Las instrucciones que manipulan las posiciones de memoria reservadas para este tipo de comunicación son instrucciones especiales del juego de instrucciones del procesador.",
+      "Las posiciones de memoria física reservadas para este tipo de comunicación forman parte del espacio de direcciones físicas reservadas al sistema operativo.",
+      "Ninguna de las anteriores es correcta."
+    ],
+    "respuesta": "Ninguna de las anteriores es correcta."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "En un sistema de ficheros de una partición:",
+    "opciones": [
+      "Hay tantos BDF como ficheros abiertos.",
+      "Bloques pequeños permiten estructuras de datos de gestión más pequeñas.",
+      "Hay tantos BDF como ficheros.",
+      "Bloques grandes reducen la fragmentación interna."
+    ],
+    "respuesta": "Hay tantos BDF como ficheros."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Especifica la respuesta que siempre es cierta en cuanto a la Tabla de Ficheros Abiertos:",
+    "opciones": [
+      "Contiene los BDF de los ficheros abiertos.",
+      "Crea una nueva entrada cuando un proceso abre un fichero.",
+      "Contiene los punteros de lectura, escritura y lectura/escritura para cada entrada.",
+      "Contiene contadores de número de veces que se está compartiendo un fichero."
+    ],
+    "respuesta": "Contiene contadores de número de veces que se está compartiendo un fichero."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "La principal ventaja de tener una tabla de BDF en la memoria principal es:",
+    "opciones": [
+      "Reducir el número de copias de BDF en memoria principal.",
+      "Garantizar una redundancia de BDF que permita resolver errores en caso de apagado abrupto.",
+      "No necesitar una tabla de ficheros abiertos.",
+      "Simplifica la compartición de recursos entre ficheros."
+    ],
+    "respuesta": "Reducir el número de copias de BDF en memoria principal."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "El sistema operativo conoce la estructura interna de los ficheros:",
+    "opciones": [
+      "ASCII.",
+      "De configuración.",
+      "Que son directorios.",
+      "Fuente de kernel."
+    ],
+    "respuesta": "Que son directorios."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Qué datos son almacenados en los bloques de datos de un directorio?",
+    "opciones": [
+      "Los directorios son ficheros especiales que no contienen datos.",
+      "Permisos, el usuario propietario, el grupo propietario, fecha y nombre de todos los ficheros almacenados en el directorio.",
+      "Una lista de pares donde cada par almacena la información relativa a cada fichero del directorio. Un valor es el número de su BDF y el otro el nombre del fichero.",
+      "Los BDFs de los ficheros almacenados en dicho directorio."
+    ],
+    "respuesta": "Una lista de pares donde cada par almacena la información relativa a cada fichero del directorio. Un valor es el número de su BDF y el otro el nombre del fichero."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "El sistema operativo conoce la estructura interna ¿de qué ficheros?",
+    "opciones": [
+      "Directorios.",
+      "Ficheros de configuración.",
+      "Fuentes del Kernel.",
+      "ASCII."
+    ],
+    "respuesta": "Directorios."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "El sistema operativo acaba de realizar una llamada al sistema open con éxito. Como consecuencia de esta operación podemos asegurar que... (señala la respuesta cierta más completa):",
+    "opciones": [
+      "Se ha cargado un BDF de memoria secundaria a memoria principal.",
+      "Se ha creado una entrada nueva en la tabla de ficheros abiertos del sistema operativo.",
+      "Se ha creado una entrada nueva en la tabla de ficheros abiertos del proceso.",
+      "Todas las anteriores son ciertas."
+    ],
+    "respuesta": "Todas las anteriores son ciertas."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "¿Dónde se almacena el BDF de un fichero?",
+    "opciones": [
+      "Solo en memoria principal.",
+      "Solo en memoria secundaria.",
+      "En memoria principal y a veces también en memoria secundaria.",
+      "En memoria secundaria y a veces también en memoria principal."
+    ],
+    "respuesta": "En memoria secundaria y a veces también en memoria principal."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "El puntero de lectura de un fichero abierto:",
+    "opciones": [
+      "Puede estar almacenado en la tabla de BDFs en memoria principal.",
+      "Es el primer descriptor de fichero de un proceso (entrada estándar).",
+      "Puede estar almacenado en la tabla de ficheros abiertos en memoria principal.",
+      "Es el segundo descriptor de fichero de un proceso (salida estándar)."
+    ],
+    "respuesta": "Puede estar almacenado en la tabla de ficheros abiertos en memoria principal."
+  },
+  {
+    "tema": "Tema 5",
+    "pregunta": "Supongamos que un manejador de disco ha recibido peticiones sobre las pistas 15,28,60,18,61,16,65,23,68,50,14. El tiempo de arranque es de 1ms, el tiempo medio de latencia es de 4ms y el tiempo de transferencia de un sector igual a 2ms, el tiempo de moverse entre dos pistas consecutivas es de 3ms, la cabeza está sobre la pista 0, y se utiliza Look circular como política. ¿Cuáles de las siguientes son correctas?",
+    "opciones": [
+      "El tiempo total de acceso es de 285ms.",
+      "El tiempo total de acceso es de 283ms.",
+      "El tiempo total de acceso es de 255ms.",
+      "Ninguna de las afirmaciones restantes es correcta."
+    ],
+    "respuesta": "Ninguna de las afirmaciones restantes es correcta."
+  }
+];
     bancoPreguntasOriginal.push(...preguntasTema45);
 
     let bancoPreguntas = [];
