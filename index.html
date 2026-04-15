@@ -2072,6 +2072,13 @@
         } else if (temaSeleccionado !== "Todos") {
             preguntasFiltradas = bancoPreguntasOriginal.filter(p => p.tema === temaSeleccionado);
         }
+        
+        // Evitar iniciar un examen vacío por un posible error en el filtrado de preguntas
+        if (preguntasFiltradas.length === 0) {
+            alert("No hay preguntas disponibles para el tema seleccionado. Vuelve a intentarlo.");
+            volverAlInicio();
+            return;
+        }
 
         let preguntasMezcladas = JSON.parse(JSON.stringify(preguntasFiltradas));
         barajarArray(preguntasMezcladas);
@@ -2099,7 +2106,7 @@
     function mostrarPregunta() {
         const item = bancoPreguntas[preguntaActualIndex];
         
-        let temaEtiqueta = temaSeleccionado === "Todos" ? ` (${item.tema})` : "";
+        let temaEtiqueta = (temaSeleccionado === "Todos" || temaSeleccionado === "Segundo Parcial") ? ` (${item.tema})` : "";
         document.getElementById('quiz-header').innerText = `--- Pregunta ${preguntaActualIndex + 1} de ${bancoPreguntas.length}${temaEtiqueta} ---`;
         document.getElementById('question-text').innerText = item.pregunta;
         
@@ -2187,6 +2194,10 @@
         document.getElementById('result-area').style.display = 'block';
         
         const total = bancoPreguntas.length;
+        if (total === 0) {
+            document.getElementById('resumen-container').innerHTML = '<p>No se han podido calcular resultados porque no hay preguntas cargadas.</p>';
+            return;
+        }
         
         // Recalculamos el puntaje al final según todas las respuestas guardadas
         let aciertos = 0;
